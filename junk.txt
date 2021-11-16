@@ -1,0 +1,238 @@
+  // Iterable<Widget> _buildFilterButtons() sync* {
+  //   print("yay");
+  //   for (var label in filterList) {
+  //     yield FilterButton(
+  //       label: label,
+  //       selectedFilter: _selectedFilter,
+  //       onPressed: () => _changeFilter(label),
+  //     );
+  //   }
+  // }
+
+
+
+            // BoxShadow(
+            //   color: const Color(0xA6A4A4).withOpacity(0.25),
+            //   offset: Offset(0, 2),
+            //   blurRadius: 6,
+            // ),
+
+
+
+linter:
+  rules:
+    - parameter_assignments
+    - prefer_const_constructors
+
+analyzer:
+  errors:
+    parameter_assignments: error
+    prefer_const_constructors: error
+
+
+
+
+
+
+      // final String id = json["id"].toString();
+      // final String name = json["name"];
+      // final String coverImageUrl = json["coverImage"]["url"];
+      // final bool payByFlexPlan = json["paymentPlans"]["usesFlexPlan"];
+      // final bool payByMealPlan = json["paymentPlans"]["usesMealPlan"];
+
+      // final String? mealOfferingsUrl = json["mealOfferings"]["asUrl"];
+
+      // dynamic mealOfferingsDynamicListOrNull = json["mealOfferings"]["asList"];
+      // final List<String>? mealOfferingsList =
+      //     mealOfferingsDynamicListOrNull == null
+      //         ? null
+      //         : List<String>.from(mealOfferingsDynamicListOrNull);
+
+      // // Asserts that exactly one method of displaying meal offerings is null
+      // assert((mealOfferingsUrl == null && mealOfferingsList != null) ||
+      //     (mealOfferingsUrl != null && mealOfferingsList == null));
+
+      // final String locationPreposition =
+      //     json["locationWithPreposition"]["preposition"];
+      // final String locationNearbyLandmark =
+      //     json["locationWithPreposition"]["nearbyLandmark"];
+
+      // final String? buildingFilterTag = json["buildingFilterTag"];
+
+      // /// The json must be retreived as type Map<String, dynamic> because the json["hoursOfOperation"]["id"] property
+      // /// is originally an integer
+      // final OperatingTimes hoursOfOperation = OperatingTimes.fromJson(
+      //   Map<String, dynamic>.from(json["hoursOfOperation"]),
+      //   id,
+      // );
+
+
+ /// We first check if today's date falls within any dates to override and if the [foodSpotId] is among
+  /// the list of IDs to exclude. If both conditions are met, we immediately return the map with an
+  /// availabilityStatus of AvailabilityStatus.ClosedWithReason along with a custom message from the
+  /// overriden date
+
+
+
+
+
+
+
+  /// Returns a map containing the values for the current availabilityStatus and availabilityMessage
+  /// stored in the keys "status" and "message" respectively
+  ///
+  /// * Logic for overriden dates would be included in state management so that it is centralised
+  /// * rather than being utilized seperately in each [OperatingTimes] instance
+  ///
+  /// The [getOpenAndCloseTimeOfDate] method is called to retreive the work hours of the
+  /// current day and other class methods are used to construct the returned map
+  ///
+  /// For unit tests we use the optional parameter [dateTimeTestInstance] to inject different
+  /// DateTime instances, however in production code, it remains null and the DateTime.now()
+  /// instance will be used as our default dateTimeNow
+  ///
+  /// TODO: Debug this function intensely as it's quite prone to errors
+  Map<String, Object> getAvailabilityStatusAndMessage({
+    DateTime? dateTimeTestInstance,
+  }) {
+    late final AvailabilityStatus availabilityStatus;
+    late final String availabilityMessage;
+
+    final DateTime dateTimeNow = dateTimeTestInstance ?? DateTime.now();
+
+    final List<String>? openAndCloseTimesToday =
+        getOpenAndCloseTimeOfDate(dateTimeNow.weekday);
+
+    if (openAndCloseTimesToday == null) {
+      availabilityStatus = AvailabilityStatus.ReOpensAnotherDay;
+      availabilityMessage = _getAvailabilityMessage(
+        availabilityStatus,
+        weekdayIntOfNextOpenDay:
+            _getWeekdayIntOfNextOpenDay(dateTimeNow.weekday),
+      );
+    } else {
+      final String closeTimeTodayAsString = openAndCloseTimesToday[1];
+      final DateTime openTimeToday =
+          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[0]);
+      final DateTime closeTimeToday =
+          _createDateTimeInstance(dateTimeNow, closeTimeTodayAsString);
+      availabilityStatus = _getAvailabilityStatus(
+        dateTimeNow,
+        openTimeToday,
+        closeTimeToday,
+      );
+
+      if (availabilityStatus == AvailabilityStatus.OpenNow) {
+        availabilityMessage = _getAvailabilityMessage(
+          availabilityStatus,
+          closeTimeToday: closeTimeTodayAsString,
+        );
+      } else if (availabilityStatus == AvailabilityStatus.ReOpensLaterToday) {
+        availabilityMessage = _getAvailabilityMessage(
+          availabilityStatus,
+          upcomingOpenTimeToday: openAndCloseTimesToday[0],
+        );
+      } else {
+        assert(availabilityStatus == AvailabilityStatus.ReOpensAnotherDay);
+        availabilityMessage = _getAvailabilityMessage(
+          availabilityStatus,
+          weekdayIntOfNextOpenDay:
+              _getWeekdayIntOfNextOpenDay(dateTimeNow.weekday),
+        );
+      }
+    }
+
+    return {
+      "status": availabilityStatus,
+      "message": availabilityMessage,
+    };
+  }
+
+  /// Returns an availabilityMessage based on the availabilityStatus.
+  ///
+  /// The [availabilityStatus] parameter must either be [AvailabilityStatus.OpenNow],
+  /// [AvailabilityStatus.ReOpensLaterToday] or [AvailabilityStatus.ReOpensAnotherDay]
+  ///
+  /// TODO: Debug this function intensely as it's quite prone to errors
+  String _getAvailabilityMessage(
+    AvailabilityStatus availabilityStatus, {
+    String? closeTimeToday,
+    String? upcomingOpenTimeToday,
+    int? weekdayIntOfNextOpenDay,
+  }) {
+    assert(availabilityStatus == AvailabilityStatus.OpenNow ||
+        availabilityStatus == AvailabilityStatus.ReOpensLaterToday ||
+        availabilityStatus == AvailabilityStatus.ReOpensAnotherDay);
+
+    if (availabilityStatus == AvailabilityStatus.OpenNow) {
+      assert(closeTimeToday != null);
+
+      final String closeTimeTodayAsFormattedTwelveHour =
+          _convertToTwelveHourString(closeTimeToday!, removeZeroMinutes: true);
+      return "Open till $closeTimeTodayAsFormattedTwelveHour";
+    } else if (availabilityStatus == AvailabilityStatus.ReOpensLaterToday) {
+      assert(upcomingOpenTimeToday != null);
+
+      final String upcomingOpenTimeTodayAsFormattedTwelveHour =
+          _convertToTwelveHourString(upcomingOpenTimeToday!,
+              removeZeroMinutes: true);
+      return "Re-opens at $upcomingOpenTimeTodayAsFormattedTwelveHour today";
+    } else {
+      assert(availabilityStatus == AvailabilityStatus.ReOpensAnotherDay &&
+          weekdayIntOfNextOpenDay != null);
+
+      final String nextOpenDayString =
+          _getWeekdayString(weekdayIntOfNextOpenDay!);
+      final String nextOpenTime =
+          getOpenAndCloseTimeOfDate(weekdayIntOfNextOpenDay)![0];
+      final String nextOpenTimeAsFormattedTwelveHour =
+          _convertToTwelveHourString(nextOpenTime, removeZeroMinutes: true);
+      return "Re-opens on $nextOpenDayString by $nextOpenTimeAsFormattedTwelveHour";
+    }
+  }
+
+  /// Returns [AvailabilityStatus.OpenNow] if timeNow is in between openTime and closeTime and
+  /// [AvailabilityStatus.ReOpensLaterToday or AvailabilityStatus.ReOpensAnotherDay] if otherwise
+  AvailabilityStatus _getAvailabilityStatus(
+    DateTime timeNow,
+    DateTime openTimeToday,
+    DateTime closeTimeToday,
+  ) {
+    assert(closeTimeToday.isAfter(openTimeToday));
+
+    if (timeNow.isAfter(openTimeToday.subtract(Duration(milliseconds: 1))) &&
+        timeNow.isBefore(closeTimeToday)) {
+      return AvailabilityStatus.OpenNow;
+    } else if (timeNow.isBefore(openTimeToday)) {
+      return AvailabilityStatus.ReOpensLaterToday;
+    } else {
+      return AvailabilityStatus.ReOpensAnotherDay;
+    }
+  }
+
+  /// A public method that utilizes [_getAvailabilityStatus] for efficient filtering of foodspots.
+  ///
+  /// For unit tests we use the optional parameter [dateTimeTestInstance] to inject different
+  /// DateTime instances, however in production code, it remains null and the DateTime.now()
+  /// instance will be used as our default dateTimeNow
+  bool isOpenNow({DateTime? dateTimeTestInstance}) {
+    final DateTime dateTimeNow = dateTimeTestInstance ?? DateTime.now();
+    final openAndCloseTimesToday =
+        getOpenAndCloseTimeOfDate(dateTimeNow.weekday);
+
+    if (openAndCloseTimesToday != null) {
+      final openTimeToday =
+          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[0]);
+      final closeTimeToday =
+          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[1]);
+
+      if (AvailabilityStatus.OpenNow ==
+          _getAvailabilityStatus(dateTimeNow, openTimeToday, closeTimeToday)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
