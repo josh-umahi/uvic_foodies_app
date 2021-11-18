@@ -1,3 +1,4 @@
+import '../formatted_reponse/food_spot_formatted_response.dart';
 import '../times_and_dates/operating_times.dart';
 import 'food_spot.dart';
 
@@ -8,11 +9,11 @@ class FoodSpotDetails extends FoodSpot {
     required String coverImageUrl,
     required String locationPreposition,
     required String locationNearbyLandmark,
+    required String? mealOfferingsUrl,
     required String? buildingFilterTagString,
     required OperatingTimes operatingTimes,
     required this.payByFlexPlan,
     required this.payByMealPlan,
-    required this.mealOfferingsUrl,
     required this.mealOfferingsList,
   }) : super(
           id: id,
@@ -25,43 +26,24 @@ class FoodSpotDetails extends FoodSpot {
           operatingTimes: operatingTimes,
         );
 
-  /// To see json example, refer to the FoodSpotRepository.formattedResponseBody
-  factory FoodSpotDetails.fromJson(Map<String, dynamic> json) {
-    try {
-      final String id = json["formattedId"];
-      final String name = json["formattedName"];
-      final String coverImageUrl = json["formattedCoverImageUrl"];
-      final bool payByFlexPlan = json["formattedPayByFlexPlan"];
-      final bool payByMealPlan = json["formattedPayByMealPlan"];
-      final String? mealOfferingsUrl = json["formattedMealOfferingsUrl"];
-      final List<String>? mealOfferingsList =
-          json["formattedMealOfferingsList"];
-      final String locationPreposition = json["formattedLocationPreposition"];
-      final String locationNearbyLandmark =
-          json["formattedLocationNearbyLandmark"];
-      final String? buildingFilterTagString =
-          json["formattedBuildingFilterTagString"];
-      final OperatingTimes operatingTimes = OperatingTimes.fromJson(
-        json["formattedHoursOfOperation"],
-        id,
-      );
-
-      return FoodSpotDetails(
-        id: id,
-        name: name,
-        coverImageUrl: coverImageUrl,
-        payByFlexPlan: payByFlexPlan,
-        payByMealPlan: payByMealPlan,
-        mealOfferingsUrl: mealOfferingsUrl,
-        mealOfferingsList: mealOfferingsList,
-        locationPreposition: locationPreposition,
-        locationNearbyLandmark: locationNearbyLandmark,
-        buildingFilterTagString: buildingFilterTagString,
-        operatingTimes: operatingTimes,
-      );
-    } catch (e) {
-      rethrow;
-    }
+  factory FoodSpotDetails.fromFormattedResponse(
+    FoodSpotFormattedResponse formattedResponse,
+  ) {
+    return FoodSpotDetails(
+      id: formattedResponse.id,
+      name: formattedResponse.name,
+      coverImageUrl: formattedResponse.coverImageUrl,
+      payByFlexPlan: formattedResponse.paymentsByFlexPlan,
+      payByMealPlan: formattedResponse.paymentsByMealPlan,
+      mealOfferingsUrl: formattedResponse.mealOfferingsAsUrl,
+      mealOfferingsList: formattedResponse.mealOfferingsAsList,
+      locationPreposition: formattedResponse.locationPreposition,
+      locationNearbyLandmark: formattedResponse.locationNearbyLandmark,
+      buildingFilterTagString: formattedResponse.buildingFilterTag,
+      operatingTimes: OperatingTimes.fromFormattedResponse(
+        formattedResponse.operatingTimesFormattedResponse,
+      ),
+    );
   }
 
   @override
@@ -82,11 +64,7 @@ class FoodSpotDetails extends FoodSpot {
     """;
   }
 
-  /// The payment plans allowed by this foodspot
   final bool payByFlexPlan;
   final bool payByMealPlan;
-
-  /// The meal offerings may either be a list or a Url, not both or neither
-  final String? mealOfferingsUrl;
   final List<String>? mealOfferingsList;
 }

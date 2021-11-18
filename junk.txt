@@ -1,238 +1,153 @@
-  // Iterable<Widget> _buildFilterButtons() sync* {
-  //   print("yay");
-  //   for (var label in filterList) {
-  //     yield FilterButton(
-  //       label: label,
-  //       selectedFilter: _selectedFilter,
-  //       onPressed: () => _changeFilter(label),
-  //     );
-  //   }
-  // }
 
-
-
-            // BoxShadow(
-            //   color: const Color(0xA6A4A4).withOpacity(0.25),
-            //   offset: Offset(0, 2),
-            //   blurRadius: 6,
-            // ),
-
-
-
-linter:
-  rules:
-    - parameter_assignments
-    - prefer_const_constructors
-
-analyzer:
-  errors:
-    parameter_assignments: error
-    prefer_const_constructors: error
+final List<String> nullableKeys = [
+        "mealOfferingsAsUrl",
+        "mealOfferingsAsList",
+        "buildingFilterTag",
+      ];
+      foodSpotMap.forEach((key, value) => {
+            // TODO: Appropriate Error Throw for "catch" to Handle
+          });
 
 
 
 
 
-
-      // final String id = json["id"].toString();
-      // final String name = json["name"];
-      // final String coverImageUrl = json["coverImage"]["url"];
-      // final bool payByFlexPlan = json["paymentPlans"]["usesFlexPlan"];
-      // final bool payByMealPlan = json["paymentPlans"]["usesMealPlan"];
-
-      // final String? mealOfferingsUrl = json["mealOfferings"]["asUrl"];
-
-      // dynamic mealOfferingsDynamicListOrNull = json["mealOfferings"]["asList"];
-      // final List<String>? mealOfferingsList =
-      //     mealOfferingsDynamicListOrNull == null
-      //         ? null
-      //         : List<String>.from(mealOfferingsDynamicListOrNull);
-
-      // // Asserts that exactly one method of displaying meal offerings is null
-      // assert((mealOfferingsUrl == null && mealOfferingsList != null) ||
-      //     (mealOfferingsUrl != null && mealOfferingsList == null));
-
-      // final String locationPreposition =
-      //     json["locationWithPreposition"]["preposition"];
-      // final String locationNearbyLandmark =
-      //     json["locationWithPreposition"]["nearbyLandmark"];
-
-      // final String? buildingFilterTag = json["buildingFilterTag"];
-
-      // /// The json must be retreived as type Map<String, dynamic> because the json["hoursOfOperation"]["id"] property
-      // /// is originally an integer
-      // final OperatingTimes hoursOfOperation = OperatingTimes.fromJson(
-      //   Map<String, dynamic>.from(json["hoursOfOperation"]),
-      //   id,
-      // );
-
-
- /// We first check if today's date falls within any dates to override and if the [foodSpotId] is among
-  /// the list of IDs to exclude. If both conditions are met, we immediately return the map with an
-  /// availabilityStatus of AvailabilityStatus.ClosedWithReason along with a custom message from the
-  /// overriden date
+/// we have the listOfJsonFoodSpots and the listOfJsonImages
+/// 1.  we then create map with id to formatted foodspot (we need methods to: format foodspots, loop through listOfJsonFoodSpots to format foodspots and create the map)
+/// 2.  we then create map with id to formatted images urls (we need methods to: format image url, loop through listOfJsonImages to format image url and create the map)
 
 
 
+          import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 
+import '../models/times_and_dates/operating_times.dart';
+import 'contentful_repository.dart';
 
+class FoodSpotRepository {
+  FoodSpotRepository();
 
-  /// Returns a map containing the values for the current availabilityStatus and availabilityMessage
-  /// stored in the keys "status" and "message" respectively
-  ///
-  /// * Logic for overriden dates would be included in state management so that it is centralised
-  /// * rather than being utilized seperately in each [OperatingTimes] instance
-  ///
-  /// The [getOpenAndCloseTimeOfDate] method is called to retreive the work hours of the
-  /// current day and other class methods are used to construct the returned map
-  ///
-  /// For unit tests we use the optional parameter [dateTimeTestInstance] to inject different
-  /// DateTime instances, however in production code, it remains null and the DateTime.now()
-  /// instance will be used as our default dateTimeNow
-  ///
-  /// TODO: Debug this function intensely as it's quite prone to errors
-  Map<String, Object> getAvailabilityStatusAndMessage({
-    DateTime? dateTimeTestInstance,
-  }) {
-    late final AvailabilityStatus availabilityStatus;
-    late final String availabilityMessage;
+  /// * Ensure to call this method first when creating new instance of this class!
+  Future<void> init() async {
+    final allFoodSpotsResponse = await _getAllFoodSpotsResponse();
 
-    final DateTime dateTimeNow = dateTimeTestInstance ?? DateTime.now();
+    try {
+      final List foodSpotsJsonList = allFoodSpotsResponse["foodSpotsJsonList"]!;
+      final List imagesJsonList = allFoodSpotsResponse["imagesJsonList"]!;
 
-    final List<String>? openAndCloseTimesToday =
-        getOpenAndCloseTimeOfDate(dateTimeNow.weekday);
+      /// Late initialization of our class properties
 
-    if (openAndCloseTimesToday == null) {
-      availabilityStatus = AvailabilityStatus.ReOpensAnotherDay;
-      availabilityMessage = _getAvailabilityMessage(
-        availabilityStatus,
-        weekdayIntOfNextOpenDay:
-            _getWeekdayIntOfNextOpenDay(dateTimeNow.weekday),
-      );
-    } else {
-      final String closeTimeTodayAsString = openAndCloseTimesToday[1];
-      final DateTime openTimeToday =
-          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[0]);
-      final DateTime closeTimeToday =
-          _createDateTimeInstance(dateTimeNow, closeTimeTodayAsString);
-      availabilityStatus = _getAvailabilityStatus(
-        dateTimeNow,
-        openTimeToday,
-        closeTimeToday,
-      );
-
-      if (availabilityStatus == AvailabilityStatus.OpenNow) {
-        availabilityMessage = _getAvailabilityMessage(
-          availabilityStatus,
-          closeTimeToday: closeTimeTodayAsString,
-        );
-      } else if (availabilityStatus == AvailabilityStatus.ReOpensLaterToday) {
-        availabilityMessage = _getAvailabilityMessage(
-          availabilityStatus,
-          upcomingOpenTimeToday: openAndCloseTimesToday[0],
-        );
-      } else {
-        assert(availabilityStatus == AvailabilityStatus.ReOpensAnotherDay);
-        availabilityMessage = _getAvailabilityMessage(
-          availabilityStatus,
-          weekdayIntOfNextOpenDay:
-              _getWeekdayIntOfNextOpenDay(dateTimeNow.weekday),
-        );
-      }
+    } catch (e) {
+      // TODO: Appropriate Error Handling
     }
+  }
 
-    return {
-      "status": availabilityStatus,
-      "message": availabilityMessage,
+  /// Map containing keys and values of foodSpot ID and foodSpot respectively
+  late List<dynamic> foodSpotsMapIdToFoodSpotsFormatted;
+
+  /// Map containing keys and values of image ID and image URL respectively
+  late Map<String> imagesMapIdToUrl;
+
+  List<FoodSpotThumbnail> getAllFoodSpotThumbnails() {}
+
+  /// When successful: this method returns a map of keys: "foodSpotsJsonList" and "imagesJsonList" containing
+  /// the list of foodspot json objects and the list of image json objects respectively
+  ///
+  /// When failed:
+  /// TODO: complete documentation
+  Future<Map<String, List>> _getAllFoodSpotsResponse() async {
+    /// My Postman Https Request Example:
+    /// https://cdn.contentful.com/spaces/{{UVIC_FOODIES_SPACE_ID}}/entries?access_token={{UVIC_FOODIES_ACCESS_TOKEN}}&content_type={{UVIC_FOODIES_CONTENT_TYPE_ID_FOODSPOTS}}
+
+    final queryParameters = {
+      "access_token": ContentfulRepository.ACCESS_TOKEN,
+      "content_type": ContentfulRepository.CONTENT_TYPE_FOODSPOT,
     };
-  }
 
-  /// Returns an availabilityMessage based on the availabilityStatus.
-  ///
-  /// The [availabilityStatus] parameter must either be [AvailabilityStatus.OpenNow],
-  /// [AvailabilityStatus.ReOpensLaterToday] or [AvailabilityStatus.ReOpensAnotherDay]
-  ///
-  /// TODO: Debug this function intensely as it's quite prone to errors
-  String _getAvailabilityMessage(
-    AvailabilityStatus availabilityStatus, {
-    String? closeTimeToday,
-    String? upcomingOpenTimeToday,
-    int? weekdayIntOfNextOpenDay,
-  }) {
-    assert(availabilityStatus == AvailabilityStatus.OpenNow ||
-        availabilityStatus == AvailabilityStatus.ReOpensLaterToday ||
-        availabilityStatus == AvailabilityStatus.ReOpensAnotherDay);
+    final uri = Uri.https(
+      ContentfulRepository.BASE_URL,
+      "spaces/${ContentfulRepository.SPACE_ID}/entries",
+      queryParameters,
+    );
 
-    if (availabilityStatus == AvailabilityStatus.OpenNow) {
-      assert(closeTimeToday != null);
+    final client = http.Client();
+    final response = await client.get(uri);
 
-      final String closeTimeTodayAsFormattedTwelveHour =
-          _convertToTwelveHourString(closeTimeToday!, removeZeroMinutes: true);
-      return "Open till $closeTimeTodayAsFormattedTwelveHour";
-    } else if (availabilityStatus == AvailabilityStatus.ReOpensLaterToday) {
-      assert(upcomingOpenTimeToday != null);
+    // The "http" package instructs to run this method after client usage in order to prevent memory leak
+    client.close();
 
-      final String upcomingOpenTimeTodayAsFormattedTwelveHour =
-          _convertToTwelveHourString(upcomingOpenTimeToday!,
-              removeZeroMinutes: true);
-      return "Re-opens at $upcomingOpenTimeTodayAsFormattedTwelveHour today";
-    } else {
-      assert(availabilityStatus == AvailabilityStatus.ReOpensAnotherDay &&
-          weekdayIntOfNextOpenDay != null);
+    final json = jsonDecode(response.body);
 
-      final String nextOpenDayString =
-          _getWeekdayString(weekdayIntOfNextOpenDay!);
-      final String nextOpenTime =
-          getOpenAndCloseTimeOfDate(weekdayIntOfNextOpenDay)![0];
-      final String nextOpenTimeAsFormattedTwelveHour =
-          _convertToTwelveHourString(nextOpenTime, removeZeroMinutes: true);
-      return "Re-opens on $nextOpenDayString by $nextOpenTimeAsFormattedTwelveHour";
+    try {
+      return {
+        "foodSpotsJsonList": json["items"] as List,
+        "imagesJsonList": json["includes"]["Asset"] as List,
+      };
+    } catch (e) {
+      // TODO: Appropriate Error Handling
+      rethrow;
     }
   }
 
-  /// Returns [AvailabilityStatus.OpenNow] if timeNow is in between openTime and closeTime and
-  /// [AvailabilityStatus.ReOpensLaterToday or AvailabilityStatus.ReOpensAnotherDay] if otherwise
-  AvailabilityStatus _getAvailabilityStatus(
-    DateTime timeNow,
-    DateTime openTimeToday,
-    DateTime closeTimeToday,
+  Map<String, dynamic> generateFoodSpotMap(
+    Map<String, dynamic> json,
+    DateTime dateTimeNow,
   ) {
-    assert(closeTimeToday.isAfter(openTimeToday));
+    try {
+      final foodSpotId = json["sys"]["id"];
+      final fields = json["fields"];
 
-    if (timeNow.isAfter(openTimeToday.subtract(Duration(milliseconds: 1))) &&
-        timeNow.isBefore(closeTimeToday)) {
-      return AvailabilityStatus.OpenNow;
-    } else if (timeNow.isBefore(openTimeToday)) {
-      return AvailabilityStatus.ReOpensLaterToday;
-    } else {
-      return AvailabilityStatus.ReOpensAnotherDay;
+      /// TODO: Too many keys, convert this to a class, and assert that one of the mealOfferings vars are null
+      final foodSpotMap = {
+        "id": foodSpotId,
+        "name": fields["name"],
+        "coverImageLinkId": fields["sys"]["id"],
+        "paymentsByFlexPlan": fields["paymentsByFlexPlan"],
+        "paymentsByMealPlan": fields["paymentsByMealPlan"],
+        "mealOfferingsAsUrl": fields["mealOfferingsAsUrl"],
+        "mealOfferingsAsList": List<String>.from(fields["mealOfferingsAsList"]),
+        "locationPreposition": fields["locationPreposition"],
+        "locationNearbyLandmark": fields["locationNearbyLandmark"],
+        "buildingFilterTag": fields["buildingFilterTag"],
+        "operatingTimes": OperatingTimes(
+          foodSpotId: foodSpotId,
+          dateTimeNow: dateTimeNow,
+          monHoursWithDash: fields["hoursMonday"],
+          tueHoursWithDash: fields["hoursTuesday"],
+          wedHoursWithDash: fields["hoursWednesday"],
+          thuHoursWithDash: fields["hoursThursday"],
+          friHoursWithDash: fields["hoursFriday"],
+          satHoursWithDash: fields["hoursSaturday"],
+          sunHoursWithDash: fields["hoursSunday"],
+        )
+      };
+
+      /// Assert the type of each key and that the only nullable keys are
+      /// mealOfferingsAsUrl, mealOfferingsAsList, buildingFilterTag
+      assert(foodSpotMap["id"] is String &&
+          foodSpotMap["name"] is String &&
+          foodSpotMap["coverImageLinkId"] is String &&
+          foodSpotMap["paymentsByFlexPlan"] is bool &&
+          foodSpotMap["paymentsByMealPlan"] is bool &&
+          (foodSpotMap["mealOfferingsAsUrl"] is String ||
+              foodSpotMap["mealOfferingsAsUrl"] == null) &&
+          (foodSpotMap["mealOfferingsAsList"] is List<String> ||
+              foodSpotMap["mealOfferingsAsList"] == null) &&
+          foodSpotMap["locationPreposition"] is String &&
+          foodSpotMap["locationNearbyLandmark"] is String &&
+          (foodSpotMap["buildingFilterTag"] is String ||
+              foodSpotMap["buildingFilterTag"] == null) &&
+          foodSpotMap["operatingTimes"] is OperatingTimes);
+
+      return foodSpotMap;
+    } catch (e) {
+      // TODO: Appropriate Error Handling
+      rethrow;
     }
   }
 
-  /// A public method that utilizes [_getAvailabilityStatus] for efficient filtering of foodspots.
-  ///
-  /// For unit tests we use the optional parameter [dateTimeTestInstance] to inject different
-  /// DateTime instances, however in production code, it remains null and the DateTime.now()
-  /// instance will be used as our default dateTimeNow
-  bool isOpenNow({DateTime? dateTimeTestInstance}) {
-    final DateTime dateTimeNow = dateTimeTestInstance ?? DateTime.now();
-    final openAndCloseTimesToday =
-        getOpenAndCloseTimeOfDate(dateTimeNow.weekday);
-
-    if (openAndCloseTimesToday != null) {
-      final openTimeToday =
-          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[0]);
-      final closeTimeToday =
-          _createDateTimeInstance(dateTimeNow, openAndCloseTimesToday[1]);
-
-      if (AvailabilityStatus.OpenNow ==
-          _getAvailabilityStatus(dateTimeNow, openTimeToday, closeTimeToday)) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+  String generateImageUrl(Map<String, dynamic> json) {
+    return "https:${json["fields"]["file"]["url"]}";
   }
+}

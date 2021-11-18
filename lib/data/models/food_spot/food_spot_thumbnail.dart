@@ -1,3 +1,4 @@
+import '../formatted_reponse/food_spot_formatted_response.dart';
 import '../times_and_dates/operating_times.dart';
 import 'food_spot.dart';
 
@@ -22,36 +23,21 @@ class FoodSpotThumbnail extends FoodSpot {
           operatingTimes: operatingTimes,
         );
 
-  /// To see json example, refer to the FoodSpotRepository.formattedResponseBody
-  factory FoodSpotThumbnail.fromJson(Map<String, dynamic> json) {
-    try {
-      final String id = json["formattedId"];
-      final String name = json["formattedName"];
-      final String coverImageUrl = json["formattedCoverImageUrl"];
-      final String locationPreposition = json["formattedLocationPreposition"];
-      final String locationNearbyLandmark =
-          json["formattedLocationNearbyLandmark"];
-      final String? mealOfferingsUrl = json["formattedMealOfferingsUrl"];
-      final String? buildingFilterTagString =
-          json["formattedBuildingFilterTagString"];
-      final OperatingTimes operatingTimes = OperatingTimes.fromJson(
-        json["formattedHoursOfOperation"],
-        id,
-      );
-
-      return FoodSpotThumbnail(
-        id: id,
-        name: name,
-        coverImageUrl: coverImageUrl,
-        locationPreposition: locationPreposition,
-        locationNearbyLandmark: locationNearbyLandmark,
-        mealOfferingsUrl: mealOfferingsUrl,
-        buildingFilterTagString: buildingFilterTagString,
-        operatingTimes: operatingTimes,
-      );
-    } catch (e) {
-      rethrow;
-    }
+  factory FoodSpotThumbnail.fromFormattedResponse(
+    FoodSpotFormattedResponse formattedResponse,
+  ) {
+    return FoodSpotThumbnail(
+      id: formattedResponse.id,
+      name: formattedResponse.name,
+      coverImageUrl: formattedResponse.coverImageUrl,
+      locationPreposition: formattedResponse.locationPreposition,
+      locationNearbyLandmark: formattedResponse.locationNearbyLandmark,
+      mealOfferingsUrl: formattedResponse.mealOfferingsAsUrl,
+      buildingFilterTagString: formattedResponse.buildingFilterTag,
+      operatingTimes: OperatingTimes.fromFormattedResponse(
+        formattedResponse.operatingTimesFormattedResponse,
+      ),
+    );
   }
 
   @override

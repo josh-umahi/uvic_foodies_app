@@ -1,4 +1,5 @@
 import '../enums.dart';
+import '../formatted_reponse/operating_times_formatted_response.dart';
 
 /// This class is in charge of all the time data of the foodSpot such as:
 /// - daily hours of operation,
@@ -16,58 +17,23 @@ class OperatingTimes {
     required this.sunHoursWithDash,
     required this.foodSpotId,
     required this.dateTimeNow,
-  });
+  }) {
+    //TODO: Replace this with all the OperatingTimes.fromJson body and remove OperatingTimes.fromJson !!!
+  }
 
-  /// The date entries have a regex on the server that restricts them to
-  /// this format: "0800-1600" or [exclamationMark] to show closed
-  ///
-  /// In this factory constructor, we first confirm again that they conform to this same regex before
-  /// we parse the values. This way we dont have to do unnecessary trimmings and validation checks within our methods.
-  /// It also makes it easier for us to catch backend mistakes early
-  ///
-  /// For sample JSON, see bottom of the page
-  factory OperatingTimes.fromJson(
-    Map<String, dynamic> json,
-    String foodSpotId,
-  ) {
-    try {
-      final String monHoursWithDash = json["monday"];
-      final String tueHoursWithDash = json["tuesday"];
-      final String wedHoursWithDash = json["wednesday"];
-      final String thuHoursWithDash = json["thursday"];
-      final String friHoursWithDash = json["friday"];
-      final String satHoursWithDash = json["saturday"];
-      final String sunHoursWithDash = json["sunday"];
-
-      // * Be sure to update this if you modify the backend regex
-      final regex = RegExp(
-        r"^([01][0-9]|2[0-3])([0-5][0-9])-([01][0-9]|2[0-3])([0-5][0-9])$|^!$",
-      );
-
-      assert([
-        monHoursWithDash,
-        tueHoursWithDash,
-        wedHoursWithDash,
-        thuHoursWithDash,
-        friHoursWithDash,
-        satHoursWithDash,
-        sunHoursWithDash,
-      ].every((dayHoursWithDash) => regex.hasMatch(dayHoursWithDash)));
-
-      return OperatingTimes(
-        monHoursWithDash: monHoursWithDash,
-        tueHoursWithDash: tueHoursWithDash,
-        wedHoursWithDash: wedHoursWithDash,
-        thuHoursWithDash: thuHoursWithDash,
-        friHoursWithDash: friHoursWithDash,
-        satHoursWithDash: satHoursWithDash,
-        sunHoursWithDash: sunHoursWithDash,
-        foodSpotId: foodSpotId,
-        dateTimeNow: DateTime.now(),
-      );
-    } catch (e) {
-      rethrow;
-    }
+  factory OperatingTimes.fromFormattedResponse(
+      OperatingTimesFormattedResponse formattedResponse) {
+    return OperatingTimes(
+      foodSpotId: formattedResponse.foodSpotId,
+      monHoursWithDash: formattedResponse.monday,
+      tueHoursWithDash: formattedResponse.tuesday,
+      wedHoursWithDash: formattedResponse.wednesday,
+      thuHoursWithDash: formattedResponse.thursday,
+      friHoursWithDash: formattedResponse.friday,
+      satHoursWithDash: formattedResponse.saturday,
+      sunHoursWithDash: formattedResponse.sunday,
+      dateTimeNow: DateTime.now(),
+    );
   }
 
   @override
@@ -174,7 +140,7 @@ class OperatingTimes {
   /// - AvailabilityStatus.OpenNow: "Open till __"
   /// - AvailabilityStatus.ReOpensLaterToday: "Re-opens at ___ today"
   /// - AvailabilityStatus.ReOpensAnotherDay: "Re-opens on ___ by ___"
-  /// 
+  ///
   /// TODO: Debug this and its underlying methods intensely
   String _calculateAvailabilityMessage(
     AvailabilityStatus availabilityStatus, {

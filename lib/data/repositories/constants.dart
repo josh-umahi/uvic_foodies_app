@@ -1,1 +1,0 @@
-const String baseUrl = "localhost:1337";

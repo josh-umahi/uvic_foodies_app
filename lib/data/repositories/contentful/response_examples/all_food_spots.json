@@ -1,0 +1,420 @@
+{
+    "sys": {
+        "type": "Array"
+    },
+    "total": 4,
+    "skip": 0,
+    "limit": 100,
+    "items": [
+        {
+            "metadata": {
+                "tags": []
+            },
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "mq9b8mhi78ux"
+                    }
+                },
+                "id": "7H91XKUhCkJqDBRG4lzIzL",
+                "type": "Entry",
+                "createdAt": "2021-11-07T17:40:42.616Z",
+                "updatedAt": "2021-11-07T17:40:42.616Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 1,
+                "contentType": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "ContentType",
+                        "id": "foodSpot"
+                    }
+                },
+                "locale": "en-US"
+            },
+            "fields": {
+                "name": "The MOD - Lunch",
+                "coverImage": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Asset",
+                        "id": "1L3Ztw4LgL6sr2uIys00c0"
+                    }
+                },
+                "paymentsByFlexPlan": true,
+                "paymentsByMealPlan": true,
+                "mealOfferingsAsUrl": "https://www.uvic.ca/services/food/what/commons/index.php",
+                "locationPreposition": "next to the",
+                "locationNearbyLandmark": "Uvic Library",
+                "buildingFilterTag": "TheMOD",
+                "hoursMonday": "1100-1400",
+                "hoursTuesday": "1100-1400",
+                "hoursWednesday": "1100-1400",
+                "hoursThursday": "1100-1400",
+                "hoursFriday": "1100-1400",
+                "hoursSaturday": "1100-1400",
+                "hoursSunday": "1100-1400"
+            }
+        },
+        {
+            "metadata": {
+                "tags": []
+            },
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "mq9b8mhi78ux"
+                    }
+                },
+                "id": "2kwajlH2h3fI4NR4yADjle",
+                "type": "Entry",
+                "createdAt": "2021-11-07T17:38:10.856Z",
+                "updatedAt": "2021-11-07T17:38:10.856Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 1,
+                "contentType": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "ContentType",
+                        "id": "foodSpot"
+                    }
+                },
+                "locale": "en-US"
+            },
+            "fields": {
+                "name": "The MOD - Dinner",
+                "coverImage": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Asset",
+                        "id": "qtul0Bflc0yIM920xTNPu"
+                    }
+                },
+                "paymentsByFlexPlan": true,
+                "paymentsByMealPlan": true,
+                "mealOfferingsAsUrl": "https://www.uvic.ca/services/food/what/commons/index.php",
+                "locationPreposition": "next to the",
+                "locationNearbyLandmark": "Uvic Library",
+                "buildingFilterTag": "TheMOD",
+                "hoursMonday": "1700-1930",
+                "hoursTuesday": "1700-1930",
+                "hoursWednesday": "1700-1930",
+                "hoursThursday": "1700-1930",
+                "hoursFriday": "1700-1930",
+                "hoursSaturday": "1700-1930",
+                "hoursSunday": "1700-1930"
+            }
+        },
+        {
+            "metadata": {
+                "tags": []
+            },
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "mq9b8mhi78ux"
+                    }
+                },
+                "id": "6lfP4zQromyEvYZBthPlra",
+                "type": "Entry",
+                "createdAt": "2021-11-07T17:32:29.430Z",
+                "updatedAt": "2021-11-07T17:35:41.117Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 2,
+                "contentType": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "ContentType",
+                        "id": "foodSpot"
+                    }
+                },
+                "locale": "en-US"
+            },
+            "fields": {
+                "name": "Munchie Bar",
+                "coverImage": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Asset",
+                        "id": "1MIewL9coN0devwPwDe5yY"
+                    }
+                },
+                "paymentsByFlexPlan": true,
+                "paymentsByMealPlan": false,
+                "mealOfferingsAsUrl": "https://uvss.ca/munchie-bar/",
+                "locationPreposition": "in the",
+                "locationNearbyLandmark": "Sub",
+                "buildingFilterTag": "TheSub",
+                "hoursMonday": "0800-1930",
+                "hoursTuesday": "0800-1930",
+                "hoursWednesday": "0800-1930",
+                "hoursThursday": "0800-1930",
+                "hoursFriday": "0800-1930",
+                "hoursSaturday": "1430-1930",
+                "hoursSunday": "1430-1930"
+            }
+        },
+        {
+            "metadata": {
+                "tags": []
+            },
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "mq9b8mhi78ux"
+                    }
+                },
+                "id": "4JJZktktNZPwwoPgkDJaU3",
+                "type": "Entry",
+                "createdAt": "2021-11-06T23:15:34.737Z",
+                "updatedAt": "2021-11-06T23:33:10.888Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 3,
+                "contentType": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "ContentType",
+                        "id": "foodSpot"
+                    }
+                },
+                "locale": "en-US"
+            },
+            "fields": {
+                "name": "Bibliocafe",
+                "coverImage": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Asset",
+                        "id": "1Ia67fFGKNPvjipoeKI2gd"
+                    }
+                },
+                "paymentsByFlexPlan": true,
+                "paymentsByMealPlan": true,
+                "mealOfferingsAsList": [
+                    "specialty coffees and teas",
+                    "grab-and-go sandwiches",
+                    "wraps and buns",
+                    "salads",
+                    "sushi",
+                    "pastry rolls",
+                    "samosas",
+                    "cakes",
+                    "squares",
+                    "pastries and other sweets"
+                ],
+                "locationPreposition": "in the",
+                "locationNearbyLandmark": "Uvic Library",
+                "hoursMonday": "0800-2000",
+                "hoursTuesday": "0800-2000",
+                "hoursWednesday": "0800-2000",
+                "hoursThursday": "0800-2000",
+                "hoursFriday": "0800-1600",
+                "hoursSaturday": "!",
+                "hoursSunday": "!"
+            }
+        }
+    ],
+    "includes": {
+        "Asset": [
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "1Ia67fFGKNPvjipoeKI2gd",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.569Z",
+                    "updatedAt": "2021-11-08T21:57:53.846Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "b",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/1Ia67fFGKNPvjipoeKI2gd/46d894db59144605a79963143ea31dec/b.jpg",
+                        "details": {
+                            "size": 77303,
+                            "image": {
+                                "width": 507,
+                                "height": 338
+                            }
+                        },
+                        "fileName": "b.jpg",
+                        "contentType": "image/jpeg"
+                    }
+                }
+            },
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "1L3Ztw4LgL6sr2uIys00c0",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.573Z",
+                    "updatedAt": "2021-11-08T21:57:53.815Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "d",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/1L3Ztw4LgL6sr2uIys00c0/8e9694ef825e3068426165268dd65223/d.jpg",
+                        "details": {
+                            "size": 232487,
+                            "image": {
+                                "width": 1180,
+                                "height": 730
+                            }
+                        },
+                        "fileName": "d.jpg",
+                        "contentType": "image/jpeg"
+                    }
+                }
+            },
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "1MIewL9coN0devwPwDe5yY",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.575Z",
+                    "updatedAt": "2021-11-08T21:57:53.815Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "c",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/1MIewL9coN0devwPwDe5yY/577e26a5a05d919e3d3dfe60a1a907ba/c.png",
+                        "details": {
+                            "size": 1890754,
+                            "image": {
+                                "width": 1440,
+                                "height": 605
+                            }
+                        },
+                        "fileName": "c.png",
+                        "contentType": "image/png"
+                    }
+                }
+            },
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "qtul0Bflc0yIM920xTNPu",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.545Z",
+                    "updatedAt": "2021-11-08T21:57:53.823Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "e",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/qtul0Bflc0yIM920xTNPu/210babeeda63c10da9f3bb8b81015c3b/e.jpg",
+                        "details": {
+                            "size": 132695,
+                            "image": {
+                                "width": 900,
+                                "height": 596
+                            }
+                        },
+                        "fileName": "e.jpg",
+                        "contentType": "image/jpeg"
+                    }
+                }
+            }
+        ]
+    }
+}
