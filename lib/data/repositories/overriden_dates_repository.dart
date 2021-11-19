@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../models/times_and_dates/overriden_date.dart';
+import '../models/overriden_date/overriden_date.dart';
 import 'contentful/contentful_helpers.dart';
 
 /// In earlier versions of the app we'll have only 1 OverridenDate so as to esnure that

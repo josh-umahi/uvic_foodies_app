@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/enums.dart';
 import '../../../data/models/food_spot/food_spot_thumbnail.dart';
-import '../../../data/models/times_and_dates/overriden_date.dart';
+import '../../../data/models/overriden_date/overriden_date.dart';
 import '../../../data/repositories/constants.dart';
 import '../../../logic/cubits/overriden_date_cubit.dart';
 import '../../global_widgets/custom_texts.dart';

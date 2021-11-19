@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/times_and_dates/overriden_date.dart';
+import '../../data/models/overriden_date/overriden_date.dart';
 import '../../data/repositories/overriden_dates_repository.dart';
 
 class OverridenDateCubit extends Cubit<OverridenDate?> {

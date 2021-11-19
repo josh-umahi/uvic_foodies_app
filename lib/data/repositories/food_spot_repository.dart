@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:uvic_foodies_app/data/models/food_spot/food_spot_details.dart';
 
-import '../models/formatted_reponse/food_spot_formatted_response.dart';
+import '../models/food_spot/food_spot_formatted_response.dart';
 import 'contentful/contentful_helpers.dart';
 
 class FoodSpotRepository {
@@ -33,13 +34,15 @@ class FoodSpotRepository {
   Map<String, FoodSpotFormattedResponse>? get getMapOfIdsToFormattedFoodSpots =>
       _mapOfIdsToFormattedFoodSpots;
 
-  FoodSpotFormattedResponse getFoodSpotFormattedResponseById(
+  FoodSpotDetails getFoodSpotById(
     String foodSpotId,
   ) {
     try {
-      final FoodSpotFormattedResponse foodSpotFormattedResponse =
+      final foodSpotFormattedResponse =
           _mapOfIdsToFormattedFoodSpots![foodSpotId]!;
-      return foodSpotFormattedResponse;
+      final foodSpot =
+          FoodSpotDetails.fromFormattedResponse(foodSpotFormattedResponse);
+      return foodSpot;
     } catch (e) {
       // TODO: Appropriate Error Handling
       rethrow;

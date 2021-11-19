@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:uvic_foodies_app/data/models/formatted_reponse/food_spot_formatted_response.dart';
 import 'package:uvic_foodies_app/data/repositories/food_spot_repository.dart';
 import 'package:uvic_foodies_app/data/repositories/overriden_dates_repository.dart';
 
@@ -23,19 +22,20 @@ void main() {
       );
 
       print("length of foodSpots: ${mapOfIdsToImageUrls!.length}");
+      print("");
     });
 
-    test("getFoodSpotFormattedResponseById", () async {
+    test("getFoodSpotById", () async {
       await foodSpotRepository.init();
 
       const idThatExists = "7H91XKUhCkJqDBRG4lzIzL";
       const idThatDoesntExists = "1H91XKUhCkJqDBRG4lzIzL";
 
-      final foodSpotFormattedResponse =
-          foodSpotRepository.getFoodSpotFormattedResponseById(
+      final foodSpot = foodSpotRepository.getFoodSpotById(
         idThatExists,
       );
-      printFoodSpotFormattedResponse(foodSpotFormattedResponse);
+      print(foodSpot);
+      print("");
     });
   });
 
@@ -46,23 +46,7 @@ void main() {
       final overridenDates =
           await overridenDatesRepository.getLastOverridenDate();
       print(overridenDates);
+      print("");
     });
   });
-}
-
-void printFoodSpotFormattedResponse(
-  FoodSpotFormattedResponse formattedResponse,
-) {
-  print("""
-      id: ${formattedResponse.id}
-      name: ${formattedResponse.name}
-      coverImageUrl: ${formattedResponse.coverImageUrl}
-      paymentsByFlexPlan: ${formattedResponse.paymentsByFlexPlan}
-      paymentsByMealPlan: ${formattedResponse.paymentsByMealPlan}
-      mealOfferingsAsUrl: ${formattedResponse.mealOfferingsAsUrl}
-      mealOfferingsAsList: ${formattedResponse.mealOfferingsAsList}
-      locationPreposition: ${formattedResponse.locationPreposition}
-      locationNearbyLandmark: ${formattedResponse.locationNearbyLandmark}
-      buildingFilterTag: ${formattedResponse.buildingFilterTag}
-    """);
 }

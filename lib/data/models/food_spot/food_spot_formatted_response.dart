@@ -1,19 +1,33 @@
-import 'operating_times_formatted_response.dart';
+import '../operating_times/operating_times_formatted_response.dart';
+import 'food_spot.dart';
 
-class FoodSpotFormattedResponse {
-  FoodSpotFormattedResponse({
-    required this.id,
-    required this.name,
-    required this.coverImageUrl,
-    required this.paymentsByFlexPlan,
-    required this.paymentsByMealPlan,
-    required this.mealOfferingsAsUrl,
-    required this.mealOfferingsAsList,
-    required this.locationPreposition,
-    required this.locationNearbyLandmark,
-    required this.buildingFilterTag,
+class FoodSpotFormattedResponse extends FoodSpot {
+  final OperatingTimesFormattedResponse operatingTimesFormattedResponse;
+
+  const FoodSpotFormattedResponse({
     required this.operatingTimesFormattedResponse,
-  });
+    required String id,
+    required String name,
+    required String coverImageUrl,
+    required bool paymentsByFlexPlan,
+    required bool paymentsByMealPlan,
+    required String? mealOfferingsAsUrl,
+    required List<String>? mealOfferingsAsList,
+    required String locationPreposition,
+    required String locationNearbyLandmark,
+    required String? buildingFilterTagString,
+  }) : super(
+          id: id,
+          name: name,
+          coverImageUrl: coverImageUrl,
+          paymentsByFlexPlan: paymentsByFlexPlan,
+          paymentsByMealPlan: paymentsByMealPlan,
+          mealOfferingsAsUrl: mealOfferingsAsUrl,
+          mealOfferingsAsList: mealOfferingsAsList,
+          locationPreposition: locationPreposition,
+          locationNearbyLandmark: locationNearbyLandmark,
+          buildingFilterTagString: buildingFilterTagString,
+        );
 
   factory FoodSpotFormattedResponse.fromJson(
     Map<String, dynamic> json,
@@ -37,7 +51,7 @@ class FoodSpotFormattedResponse {
       final String locationPreposition = fieldsJson["locationPreposition"];
       final String locationNearbyLandmark =
           fieldsJson["locationNearbyLandmark"];
-      final String? buildingFilterTag = fieldsJson["buildingFilterTag"];
+      final String? buildingFilterTagString = fieldsJson["buildingFilterTag"];
       final operatingTimesFormattedResponse =
           OperatingTimesFormattedResponse.fromJson(fieldsJson, foodSpotId);
 
@@ -55,7 +69,7 @@ class FoodSpotFormattedResponse {
         mealOfferingsAsList: mealOfferingsAsList,
         locationPreposition: locationPreposition,
         locationNearbyLandmark: locationNearbyLandmark,
-        buildingFilterTag: buildingFilterTag,
+        buildingFilterTagString: buildingFilterTagString,
         operatingTimesFormattedResponse: operatingTimesFormattedResponse,
       );
     } catch (e) {
@@ -64,15 +78,11 @@ class FoodSpotFormattedResponse {
     }
   }
 
-  final String id;
-  final String name;
-  final String coverImageUrl;
-  final bool paymentsByFlexPlan;
-  final bool paymentsByMealPlan;
-  final String? mealOfferingsAsUrl;
-  final List<String>? mealOfferingsAsList;
-  final String locationPreposition;
-  final String locationNearbyLandmark;
-  final String? buildingFilterTag;
-  final OperatingTimesFormattedResponse operatingTimesFormattedResponse;
+  @override
+  String toString() {
+    return """
+      ${super.toString()}
+      operatingTimesFormattedResponse: $operatingTimesFormattedResponse
+    """;
+  }
 }

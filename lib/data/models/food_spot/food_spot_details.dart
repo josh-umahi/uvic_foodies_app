@@ -1,29 +1,34 @@
-import '../formatted_reponse/food_spot_formatted_response.dart';
-import '../times_and_dates/operating_times.dart';
+import '../enums.dart';
+import '../operating_times/operating_times.dart';
 import 'food_spot.dart';
+import 'food_spot_formatted_response.dart';
 
 class FoodSpotDetails extends FoodSpot {
+  final OperatingTimes operatingTimes;
+
   const FoodSpotDetails({
+    required this.operatingTimes,
     required String id,
     required String name,
     required String coverImageUrl,
+    required bool paymentsByFlexPlan,
+    required bool paymentsByMealPlan,
+    required String? mealOfferingsAsUrl,
+    required List<String>? mealOfferingsAsList,
     required String locationPreposition,
     required String locationNearbyLandmark,
-    required String? mealOfferingsUrl,
     required String? buildingFilterTagString,
-    required OperatingTimes operatingTimes,
-    required this.payByFlexPlan,
-    required this.payByMealPlan,
-    required this.mealOfferingsList,
   }) : super(
           id: id,
           name: name,
           coverImageUrl: coverImageUrl,
+          paymentsByFlexPlan: paymentsByFlexPlan,
+          paymentsByMealPlan: paymentsByMealPlan,
+          mealOfferingsAsUrl: mealOfferingsAsUrl,
+          mealOfferingsAsList: mealOfferingsAsList,
           locationPreposition: locationPreposition,
           locationNearbyLandmark: locationNearbyLandmark,
-          mealOfferingsUrl: mealOfferingsUrl,
           buildingFilterTagString: buildingFilterTagString,
-          operatingTimes: operatingTimes,
         );
 
   factory FoodSpotDetails.fromFormattedResponse(
@@ -33,13 +38,13 @@ class FoodSpotDetails extends FoodSpot {
       id: formattedResponse.id,
       name: formattedResponse.name,
       coverImageUrl: formattedResponse.coverImageUrl,
-      payByFlexPlan: formattedResponse.paymentsByFlexPlan,
-      payByMealPlan: formattedResponse.paymentsByMealPlan,
-      mealOfferingsUrl: formattedResponse.mealOfferingsAsUrl,
-      mealOfferingsList: formattedResponse.mealOfferingsAsList,
+      paymentsByFlexPlan: formattedResponse.paymentsByFlexPlan,
+      paymentsByMealPlan: formattedResponse.paymentsByMealPlan,
+      mealOfferingsAsUrl: formattedResponse.mealOfferingsAsUrl,
+      mealOfferingsAsList: formattedResponse.mealOfferingsAsList,
       locationPreposition: formattedResponse.locationPreposition,
       locationNearbyLandmark: formattedResponse.locationNearbyLandmark,
-      buildingFilterTagString: formattedResponse.buildingFilterTag,
+      buildingFilterTagString: formattedResponse.buildingFilterTagString,
       operatingTimes: OperatingTimes.fromFormattedResponse(
         formattedResponse.operatingTimesFormattedResponse,
       ),
@@ -49,22 +54,24 @@ class FoodSpotDetails extends FoodSpot {
   @override
   String toString() {
     return """
-      id: $id
-      name: $name
-      coverImageUrl: $coverImageUrl
-      locationPreposition: $locationPreposition
-      locationNearbyLandmark: $locationNearbyLandmark
-      buildingFilterTagString: $buildingFilterTagString
-      payByFlexPlan: $payByFlexPlan
-      payByMealPlan: $payByMealPlan
-      mealOfferingsUrl: $mealOfferingsUrl
-      mealOfferingsList: $mealOfferingsList
+      ${super.toString()}
+      buildingFilterTag: $buildingFilterTag
       availabilityStatus: ${operatingTimes.availabilityStatus}
       availabilityMessage: ${operatingTimes.availabilityMessage}
     """;
   }
 
-  final bool payByFlexPlan;
-  final bool payByMealPlan;
-  final List<String>? mealOfferingsList;
+  /// * Update this method if we include more buildingFilterTagString options in the backend
+  BuildingFilterTag get buildingFilterTag {
+    switch (buildingFilterTagString) {
+      case "TheMOD":
+        return BuildingFilterTag.TheMOD;
+      case "MysticMarket":
+        return BuildingFilterTag.MysticMarket;
+      case "TheSub":
+        return BuildingFilterTag.TheSub;
+      default:
+        return BuildingFilterTag.None;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import '../enums.dart';
-import '../formatted_reponse/operating_times_formatted_response.dart';
+import 'operating_times_formatted_response.dart';
 
 /// This class is in charge of all the time data of the foodSpot such as:
 /// - daily hours of operation,

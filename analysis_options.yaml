@@ -6,6 +6,6 @@ linter:
     constant_identifier_names: false
 
     # Negate these when debugging
-    prefer_const_constructors: false
+    prefer_const_constructors: true
     prefer_const_literals_to_create_immutables: false
     avoid_print: false

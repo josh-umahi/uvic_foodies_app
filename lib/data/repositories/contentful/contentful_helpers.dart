@@ -1,4 +1,4 @@
-import '../../models/formatted_reponse/food_spot_formatted_response.dart';
+import '../../models/food_spot/food_spot_formatted_response.dart';
 
 abstract class ContentfulHelpers {
   //************************* Static Constants *************************/
