@@ -408,18 +408,3 @@ class OperatingTimes {
 
   static const exclamationMark = "!";
 }
-
-/******************** Sample JSON ********************
-{
-    "hoursOfOperation": {
-        "id": 1,
-        "monday": "0800-2000",
-        "tuesday": "0800-2000",
-        "wednesday": "0800-2000",
-        "thursday": "0800-2000",
-        "friday": "0800-1600",
-        "saturday": "!",
-        "sunday": "!"
-    }
-}
-******************************************************/

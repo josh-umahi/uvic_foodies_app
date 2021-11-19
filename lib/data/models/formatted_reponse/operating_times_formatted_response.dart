@@ -17,7 +17,7 @@ class OperatingTimesFormattedResponse {
   /// we parse the values. This way we dont have to do unnecessary trimmings and validation checks within our methods.
   /// It also makes it easier for us to catch backend mistakes early
   ///
-  /// For sample JSON, see TODO
+  /// For sample JSON, see response_examples folder
   factory OperatingTimesFormattedResponse.fromJson(
     Map<String, dynamic> json,
     String foodSpotId,

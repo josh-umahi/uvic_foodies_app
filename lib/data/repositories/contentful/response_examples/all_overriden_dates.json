@@ -1,0 +1,279 @@
+{
+    "sys": {
+        "type": "Array"
+    },
+    "total": 1,
+    "skip": 0,
+    "limit": 100,
+    "items": [
+        {
+            "metadata": {
+                "tags": []
+            },
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "mq9b8mhi78ux"
+                    }
+                },
+                "id": "2DE6exHriRDTBPkqpD8Wsh",
+                "type": "Entry",
+                "createdAt": "2021-11-10T16:32:55.896Z",
+                "updatedAt": "2021-11-16T18:54:15.778Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 5,
+                "contentType": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "ContentType",
+                        "id": "overridenDate"
+                    }
+                },
+                "locale": "en-US"
+            },
+            "fields": {
+                "dateStartInclusive": "2021-11-10T00:00",
+                "dateEndInclusive": "2021-11-19T00:00",
+                "reasonForOverride": "Hours may differ due to Reading Break",
+                "foodSpotsToExclude": [
+                    {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "2kwajlH2h3fI4NR4yADjle"
+                        }
+                    },
+                    {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "4JJZktktNZPwwoPgkDJaU3"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "includes": {
+        "Entry": [
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "2kwajlH2h3fI4NR4yADjle",
+                    "type": "Entry",
+                    "createdAt": "2021-11-07T17:38:10.856Z",
+                    "updatedAt": "2021-11-07T17:38:10.856Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 1,
+                    "contentType": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "ContentType",
+                            "id": "foodSpot"
+                        }
+                    },
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "name": "The MOD - Dinner",
+                    "coverImage": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Asset",
+                            "id": "qtul0Bflc0yIM920xTNPu"
+                        }
+                    },
+                    "paymentsByFlexPlan": true,
+                    "paymentsByMealPlan": true,
+                    "mealOfferingsAsUrl": "https://www.uvic.ca/services/food/what/commons/index.php",
+                    "locationPreposition": "next to the",
+                    "locationNearbyLandmark": "Uvic Library",
+                    "buildingFilterTag": "TheMOD",
+                    "hoursMonday": "1700-1930",
+                    "hoursTuesday": "1700-1930",
+                    "hoursWednesday": "1700-1930",
+                    "hoursThursday": "1700-1930",
+                    "hoursFriday": "1700-1930",
+                    "hoursSaturday": "1700-1930",
+                    "hoursSunday": "1700-1930"
+                }
+            },
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "4JJZktktNZPwwoPgkDJaU3",
+                    "type": "Entry",
+                    "createdAt": "2021-11-06T23:15:34.737Z",
+                    "updatedAt": "2021-11-06T23:33:10.888Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 3,
+                    "contentType": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "ContentType",
+                            "id": "foodSpot"
+                        }
+                    },
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "name": "Bibliocafe",
+                    "coverImage": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Asset",
+                            "id": "1Ia67fFGKNPvjipoeKI2gd"
+                        }
+                    },
+                    "paymentsByFlexPlan": true,
+                    "paymentsByMealPlan": true,
+                    "mealOfferingsAsList": [
+                        "specialty coffees and teas",
+                        "grab-and-go sandwiches",
+                        "wraps and buns",
+                        "salads",
+                        "sushi",
+                        "pastry rolls",
+                        "samosas",
+                        "cakes",
+                        "squares",
+                        "pastries and other sweets"
+                    ],
+                    "locationPreposition": "in the",
+                    "locationNearbyLandmark": "Uvic Library",
+                    "hoursMonday": "0800-2000",
+                    "hoursTuesday": "0800-2000",
+                    "hoursWednesday": "0800-2000",
+                    "hoursThursday": "0800-2000",
+                    "hoursFriday": "0800-1600",
+                    "hoursSaturday": "!",
+                    "hoursSunday": "!"
+                }
+            }
+        ],
+        "Asset": [
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "1Ia67fFGKNPvjipoeKI2gd",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.569Z",
+                    "updatedAt": "2021-11-08T21:57:53.846Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "b",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/1Ia67fFGKNPvjipoeKI2gd/46d894db59144605a79963143ea31dec/b.jpg",
+                        "details": {
+                            "size": 77303,
+                            "image": {
+                                "width": 507,
+                                "height": 338
+                            }
+                        },
+                        "fileName": "b.jpg",
+                        "contentType": "image/jpeg"
+                    }
+                }
+            },
+            {
+                "metadata": {
+                    "tags": []
+                },
+                "sys": {
+                    "space": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Space",
+                            "id": "mq9b8mhi78ux"
+                        }
+                    },
+                    "id": "qtul0Bflc0yIM920xTNPu",
+                    "type": "Asset",
+                    "createdAt": "2021-11-06T23:15:51.545Z",
+                    "updatedAt": "2021-11-08T21:57:53.823Z",
+                    "environment": {
+                        "sys": {
+                            "id": "master",
+                            "type": "Link",
+                            "linkType": "Environment"
+                        }
+                    },
+                    "revision": 2,
+                    "locale": "en-US"
+                },
+                "fields": {
+                    "title": "e",
+                    "file": {
+                        "url": "//images.ctfassets.net/mq9b8mhi78ux/qtul0Bflc0yIM920xTNPu/210babeeda63c10da9f3bb8b81015c3b/e.jpg",
+                        "details": {
+                            "size": 132695,
+                            "image": {
+                                "width": 900,
+                                "height": 596
+                            }
+                        },
+                        "fileName": "e.jpg",
+                        "contentType": "image/jpeg"
+                    }
+                }
+            }
+        ]
+    }
+}

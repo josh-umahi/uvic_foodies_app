@@ -33,6 +33,19 @@ class FoodSpotRepository {
   Map<String, FoodSpotFormattedResponse>? get getMapOfIdsToFormattedFoodSpots =>
       _mapOfIdsToFormattedFoodSpots;
 
+  FoodSpotFormattedResponse getFoodSpotFormattedResponseById(
+    String foodSpotId,
+  ) {
+    try {
+      final FoodSpotFormattedResponse foodSpotFormattedResponse =
+          _mapOfIdsToFormattedFoodSpots![foodSpotId]!;
+      return foodSpotFormattedResponse;
+    } catch (e) {
+      // TODO: Appropriate Error Handling
+      rethrow;
+    }
+  }
+
   //************************* Setters *************************/
   set _setMapOfIdsToFormattedFoodSpots(List listOfJsonFoodSpots) {
     // We first initialize the map
@@ -61,6 +74,7 @@ class FoodSpotRepository {
       _mapOfIdsToImageUrls!.addAll(mapOfIdToImageUrl);
     }
   }
+  //**************************************************/
 
   /// Returns a map of keys: "listOfJsonFoodSpots" and "listOfJsonImages" containing
   /// the list of foodspot json objects and the list of image json objects respectively

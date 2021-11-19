@@ -9,6 +9,7 @@ abstract class ContentfulHelpers {
   static const ACCESS_TOKEN = "bic5n_LIfi0lzu2HR4JJLh5-KPpVRtXqOX4-Iom3cWE";
 
   static const CONTENT_TYPE_FOODSPOT = "foodSpot";
+  static const CONTENT_TYPE_OVERRIDEN_DATE = "overridenDate";
 
   //************************* Static Functions *************************/
   static Map<String, String> extractImageIdAndUrl(
