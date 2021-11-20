@@ -33,11 +33,17 @@ class OverridenDatesRepository {
       client.close();
 
       final entireJson = jsonDecode(response.body);
-      assert(entireJson["total"] == 0 || entireJson["total"] == 1);
+      // assert(entireJson["total"] == 0 || entireJson["total"] == 1);
 
-      final json = List.from(entireJson["items"]).first["fields"];
-      final newestOverridenDates = OverridenDate.fromJson(json);
-      return newestOverridenDates;
+      final entireJsonItems = List.from(entireJson["items"]);
+
+      if (entireJsonItems.isNotEmpty) {
+        final json = entireJsonItems.last["fields"];
+        final newestOverridenDates = OverridenDate.fromJson(json);
+        return newestOverridenDates;
+      } else {
+        return null;
+      }
     } catch (e) {
       // TODO: Appropriate Error Handling
       rethrow;

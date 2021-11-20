@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:uvic_foodies_app/data/models/food_spot/food_spot_details.dart';
 
+import '../models/food_spot/food_spot_details.dart';
 import '../models/food_spot/food_spot_formatted_response.dart';
 import 'contentful/contentful_helpers.dart';
 
@@ -34,7 +34,7 @@ class FoodSpotRepository {
   Map<String, FoodSpotFormattedResponse>? get getMapOfIdsToFormattedFoodSpots =>
       _mapOfIdsToFormattedFoodSpots;
 
-  FoodSpotDetails getFoodSpotById(
+  FoodSpotDetails getFoodSpotDetailsById(
     String foodSpotId,
   ) {
     try {
@@ -51,7 +51,7 @@ class FoodSpotRepository {
 
   //************************* Setters *************************/
   set _setMapOfIdsToFormattedFoodSpots(List listOfJsonFoodSpots) {
-    // We first initialize the map
+    // We first initialize the map before assigning values to it
     _mapOfIdsToFormattedFoodSpots = {};
 
     for (var foodSpotJson in listOfJsonFoodSpots) {
@@ -68,7 +68,7 @@ class FoodSpotRepository {
   }
 
   set _setMapOfIdsToImageUrls(List listOfJsonImages) {
-    // We first initialize the map
+    // We first initialize the map before assigning values to it
     _mapOfIdsToImageUrls = {};
 
     for (var imageJson in listOfJsonImages) {
