@@ -55,9 +55,12 @@ class FoodSpotFormattedResponse extends FoodSpot {
       final operatingTimesFormattedResponse =
           OperatingTimesFormattedResponse.fromJson(fieldsJson, foodSpotId);
 
-      // Asserts that exactly one method of displaying meal offerings is null
-      assert((mealOfferingsAsUrl == null && mealOfferingsAsList != null) ||
-          (mealOfferingsAsUrl != null && mealOfferingsAsList == null));
+      if ((mealOfferingsAsUrl == null && mealOfferingsAsList == null) ||
+          (mealOfferingsAsUrl != null && mealOfferingsAsList != null)) {
+        throw Exception(
+          "Exactly one method of displaying meal offerings should be null and the other should be defined",
+        );
+      }
 
       return FoodSpotFormattedResponse(
         id: id,
@@ -73,7 +76,7 @@ class FoodSpotFormattedResponse extends FoodSpot {
         operatingTimesFormattedResponse: operatingTimesFormattedResponse,
       );
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }

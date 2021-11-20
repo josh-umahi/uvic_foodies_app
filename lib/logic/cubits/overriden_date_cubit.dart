@@ -10,21 +10,22 @@ class OverridenDateCubit extends Cubit<OverridenDate?> {
   /// DateTime.now() falls within it
   void loadTodaysOverridenDate() async {
     try {
-      Future.delayed(Duration(seconds: 5));
+      Future.delayed(const Duration(seconds: 5));
       final overridenDate =
-          await OverridenDatesRepository().getLastOverridenDate();
+          await const OverridenDatesRepository().getLastOverridenDate();
 
       if (overridenDate != null && overridenDate.todayIsOverriden) {
         emit(overridenDate);
       }
     } catch (e) {
-      // TODO: proper error handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }
 
   bool shouldOverride(String foodSpotId) {
     if (state != null) {
+      // TODO: Replace assertion, observe that there's no try catch here
       assert(state!.todayIsOverriden);
       return !(state!.idsToExclude.contains(foodSpotId));
     } else {

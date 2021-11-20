@@ -21,7 +21,7 @@ class FoodSpotRepository {
       _setMapOfIdsToImageUrls = listOfJsonImages;
       _setMapOfIdsToFormattedFoodSpots = listOfJsonFoodSpots;
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }
@@ -44,7 +44,7 @@ class FoodSpotRepository {
           FoodSpotDetails.fromFormattedResponse(foodSpotFormattedResponse);
       return foodSpot;
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }
@@ -108,7 +108,7 @@ class FoodSpotRepository {
         "listOfJsonImages": json["includes"]["Asset"] as List,
       };
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }
@@ -118,7 +118,7 @@ class FoodSpotRepository {
       final String imageUrl = _mapOfIdsToImageUrls![imageId]!;
       return imageUrl;
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }

@@ -1,5 +1,6 @@
 import '../enums.dart';
 import 'operating_times_formatted_response.dart';
+// TODO: Replace assertion, observe that there's no try catch here
 
 /// This class is in charge of all the time data of the foodSpot such as:
 /// - daily hours of operation,
@@ -17,21 +18,20 @@ class OperatingTimes {
     required this.sunHoursWithDash,
     required this.foodSpotId,
     required this.dateTimeNow,
-  }) {
-    //TODO: Replace this with all the OperatingTimes.fromJson body and remove OperatingTimes.fromJson !!!
-  }
+  });
 
   factory OperatingTimes.fromFormattedResponse(
-      OperatingTimesFormattedResponse formattedResponse) {
+    OperatingTimesFormattedResponse formattedResponse,
+  ) {
     return OperatingTimes(
       foodSpotId: formattedResponse.foodSpotId,
-      monHoursWithDash: formattedResponse.monday,
-      tueHoursWithDash: formattedResponse.tuesday,
-      wedHoursWithDash: formattedResponse.wednesday,
-      thuHoursWithDash: formattedResponse.thursday,
-      friHoursWithDash: formattedResponse.friday,
-      satHoursWithDash: formattedResponse.saturday,
-      sunHoursWithDash: formattedResponse.sunday,
+      monHoursWithDash: formattedResponse.mondayHours,
+      tueHoursWithDash: formattedResponse.tuesdayHours,
+      wedHoursWithDash: formattedResponse.wednesdayHours,
+      thuHoursWithDash: formattedResponse.thursdayHours,
+      friHoursWithDash: formattedResponse.fridayHours,
+      satHoursWithDash: formattedResponse.saturdayHours,
+      sunHoursWithDash: formattedResponse.sundayHours,
       dateTimeNow: DateTime.now(),
     );
   }

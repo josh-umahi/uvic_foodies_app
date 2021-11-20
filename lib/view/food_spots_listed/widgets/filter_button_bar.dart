@@ -39,6 +39,7 @@ class _FilterButtonBarState extends State<FilterButtonBar> {
           SizedBox(width: 16),
           ..._filterList.map(
             (filter) {
+              // TODO: Replace assertion, observe that there's no try catch here
               assert(filter.length == 2);
               assert(filter[0] is String);
               assert(filter[1] is FilterType);

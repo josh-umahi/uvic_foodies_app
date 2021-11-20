@@ -14,13 +14,17 @@ class OverridenDate {
 
   factory OverridenDate.fromJson(Map<String, dynamic> json) {
     try {
-      /// The dates parsed contain only day, month and year. We chose to exclude
-      /// the hours and minutes from the backend to prevent timezone conflict issues.
+      /// The dates parsed contain only day, month and year. The time defaults to 00:00
+      /// We chose to exclude the hours and minutes from the backend to prevent timezone conflict issues.
       /// So for the dateEnd we manually set it to one day after the backend's dateEndInclusive
       final dateStart = DateTime.parse(json["dateStartInclusive"]);
-      final dateEnd =
-          DateTime.parse(json["dateEndInclusive"]).add(const Duration(days: 1));
-      assert(dateEnd.isAfter(dateStart));
+      final dateEnd = DateTime.parse(json["dateEndInclusive"]).add(
+        const Duration(days: 1),
+      );
+
+      if (dateStart.isBefore(dateEnd)) {
+        throw ("dateStart is before dateEnd");
+      }
 
       final nullableListOfFoodSpotJsonsToExclude = json["foodSpotsToExclude"];
       final List listOfFoodSpotJsonsToExclude =

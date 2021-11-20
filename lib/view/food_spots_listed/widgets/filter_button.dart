@@ -69,6 +69,7 @@ class FilterButton extends StatelessWidget {
       case FilterType.TheMod:
         return context.read<FoodSpotThumbnailsCubit>().filterByTheMod();
       default:
+        // TODO: Replace assertion, observe that there's no try catch here
         assert(filterType == FilterType.All);
         return context.read<FoodSpotThumbnailsCubit>().filterByAll();
     }

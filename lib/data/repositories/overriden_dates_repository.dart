@@ -33,7 +33,11 @@ class OverridenDatesRepository {
       client.close();
 
       final entireJson = jsonDecode(response.body);
-      // assert(entireJson["total"] == 0 || entireJson["total"] == 1);
+      if (entireJson["total"] > 1) {
+        throw Exception(
+          "There a multiple dates to be overriden, and our current app version isn't optimized for this",
+        );
+      }
 
       final entireJsonItems = List.from(entireJson["items"]);
 
@@ -45,7 +49,7 @@ class OverridenDatesRepository {
         return null;
       }
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }

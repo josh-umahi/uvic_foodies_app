@@ -1,13 +1,13 @@
 class OperatingTimesFormattedResponse {
   const OperatingTimesFormattedResponse({
     required this.foodSpotId,
-    required this.monday,
-    required this.tuesday,
-    required this.wednesday,
-    required this.thursday,
-    required this.friday,
-    required this.saturday,
-    required this.sunday,
+    required this.mondayHours,
+    required this.tuesdayHours,
+    required this.wednesdayHours,
+    required this.thursdayHours,
+    required this.fridayHours,
+    required this.saturdayHours,
+    required this.sundayHours,
   });
 
   /// The date entries have a regex on the server that restricts them to
@@ -23,51 +23,61 @@ class OperatingTimesFormattedResponse {
     String foodSpotId,
   ) {
     try {
-      final String monday = json["hoursMonday"];
-      final String tuesday = json["hoursTuesday"];
-      final String wednesday = json["hoursWednesday"];
-      final String thursday = json["hoursThursday"];
-      final String friday = json["hoursFriday"];
-      final String saturday = json["hoursSaturday"];
-      final String sunday = json["hoursSunday"];
+      final String mondayHours = json["hoursMonday"];
+      final String tuesdayHours = json["hoursTuesday"];
+      final String wednesdayHours = json["hoursWednesday"];
+      final String thursdayHours = json["hoursThursday"];
+      final String fridayHours = json["hoursFriday"];
+      final String saturdayHours = json["hoursSaturday"];
+      final String sundayHours = json["hoursSunday"];
 
       // * Be sure to update this if you modify the backend regex
       final regex = RegExp(
         r"^([01][0-9]|2[0-3])([0-5][0-9])-([01][0-9]|2[0-3])([0-5][0-9])$|^!$",
       );
 
-      assert([
-        monday,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-        saturday,
-        sunday,
-      ].every((dayday) => regex.hasMatch(dayday)));
+      final listOfHours = [
+        mondayHours,
+        tuesdayHours,
+        wednesdayHours,
+        thursdayHours,
+        fridayHours,
+        saturdayHours,
+        sundayHours,
+      ];
+
+      if (!(listOfHours.every((dayHours) => regex.hasMatch(dayHours)))) {
+        throw Exception("The hours do not all match the required format");
+      }
+
+      if (listOfHours.every((dayHours) => dayHours == "!")) {
+        throw Exception(
+          "The hours are all \"!\". This will cause an infinite loop in one of the later methods: OperatingTimes_getWeekdayIntOfNextOpenDay",
+        );
+      }
 
       return OperatingTimesFormattedResponse(
         foodSpotId: foodSpotId,
-        monday: monday,
-        tuesday: tuesday,
-        wednesday: wednesday,
-        thursday: thursday,
-        friday: friday,
-        saturday: saturday,
-        sunday: sunday,
+        mondayHours: mondayHours,
+        tuesdayHours: tuesdayHours,
+        wednesdayHours: wednesdayHours,
+        thursdayHours: thursdayHours,
+        fridayHours: fridayHours,
+        saturdayHours: saturdayHours,
+        sundayHours: sundayHours,
       );
     } catch (e) {
-      // TODO: Appropriate Error Handling
+      // TODO: Appropriate Exception Handling
       rethrow;
     }
   }
 
   final String foodSpotId;
-  final String monday;
-  final String tuesday;
-  final String wednesday;
-  final String thursday;
-  final String friday;
-  final String saturday;
-  final String sunday;
+  final String mondayHours;
+  final String tuesdayHours;
+  final String wednesdayHours;
+  final String thursdayHours;
+  final String fridayHours;
+  final String saturdayHours;
+  final String sundayHours;
 }

@@ -15,21 +15,22 @@ class AvailabilityStatusIcon extends StatelessWidget {
     switch (availabilityStatus) {
       case AvailabilityStatus.OpenNow:
         icon = Icons.check;
-        backgroundColor = Color(0XFF2DB674);
+        backgroundColor = const Color(0XFF2DB674);
         break;
       case AvailabilityStatus.ReOpensLaterToday:
         icon = Icons.clear_rounded;
-        backgroundColor = Color(0XFFFFB118);
+        backgroundColor = const Color(0XFFFFB118);
         break;
       case AvailabilityStatus.ReOpensAnotherDay:
         icon = Icons.clear_rounded;
-        backgroundColor = Color(0XFFFF114A);
+        backgroundColor = const Color(0XFFFF114A);
         break;
       default:
+        // TODO: Replace assertion, observe that there's no try catch here
         // For overriden date scenario
         assert(availabilityStatus == null);
         icon = Icons.stop;
-        backgroundColor = Color(0XFFFF114A);
+        backgroundColor = const Color(0XFFFF114A);
         break;
     }
 

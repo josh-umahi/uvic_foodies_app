@@ -102,6 +102,7 @@ class FoodSpotCard extends StatelessWidget {
                       if (context
                           .read<OverridenDateCubit>()
                           .shouldOverride(foodSpotThumbnail.id)) {
+                        // TODO: Replace assertion, observe that there's no try catch here
                         assert(state != null);
                         availabilityStatus = null;
                         availabilityMessage = state!.reasonForOverride;
