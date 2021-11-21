@@ -13,14 +13,14 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 45,
-      padding: EdgeInsets.only(left: 12),
+      padding: const EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: ColorConstants.lightGrey1,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.search,
             size: 20,
             color: ColorConstants.darkGrey1,
@@ -29,7 +29,7 @@ class SearchBar extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 6),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 keyboardType: TextInputType.text,
                 cursorColor: ColorConstants.darkGrey1,
                 cursorHeight: 15,

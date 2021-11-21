@@ -7,33 +7,34 @@ void main() {
   group("FoodSpotRepository: ", () {
     final foodSpotRepository = FoodSpotRepository();
 
-    test("getMapOfIdsToImageUrls and getMapOfIdsToFormattedFoodSpots",
-        () async {
+    test("getMapOfIdsToImageUrls and getFoodSpotFormattedResponses", () async {
       await foodSpotRepository.init();
 
       final mapOfIdsToImageUrls = foodSpotRepository.getMapOfIdsToImageUrls;
-      final mapOfIdsToFormattedFoodSpots =
-          foodSpotRepository.getMapOfIdsToFormattedFoodSpots;
+      final foodSpotFormattedResponses =
+          foodSpotRepository.getFoodSpotFormattedResponses;
 
       assert(
-        mapOfIdsToImageUrls != null && mapOfIdsToFormattedFoodSpots != null,
-      );
-      assert(
-        mapOfIdsToImageUrls!.length == mapOfIdsToFormattedFoodSpots!.length,
+        mapOfIdsToImageUrls.length == foodSpotFormattedResponses.length,
       );
 
-      print("length of foodSpots: ${mapOfIdsToImageUrls!.length}");
+      print("length of foodSpots: ${mapOfIdsToImageUrls.length}");
       print("");
     });
 
-    test("getFoodSpotDetailsById", () async {
+    test("Get a specific ", () async {
       await foodSpotRepository.init();
 
       const idThatExists = "7H91XKUhCkJqDBRG4lzIzL";
 
-      final foodSpotDetails = foodSpotRepository.getFoodSpotDetailsById(
-        idThatExists,
+      final foodSpotFormattedResponse =
+          foodSpotRepository.getFoodSpotFormattedResponses.firstWhere(
+        (foodSpotFormattedResponse) =>
+            foodSpotFormattedResponse.id == idThatExists,
       );
+
+      final foodSpotDetails =
+          FoodSpotDetails.fromFormattedResponse(foodSpotFormattedResponse);
       print(foodSpotDetails);
       print("");
     });
@@ -44,17 +45,14 @@ void main() {
       await foodSpotRepository.init();
 
       final mapOfIdsToImageUrls = foodSpotRepository.getMapOfIdsToImageUrls;
-      final mapOfIdsToFormattedFoodSpots =
-          foodSpotRepository.getMapOfIdsToFormattedFoodSpots;
+      final foodSpotFormattedResponses =
+          foodSpotRepository.getFoodSpotFormattedResponses;
 
       assert(
-        mapOfIdsToImageUrls != null && mapOfIdsToFormattedFoodSpots != null,
-      );
-      assert(
-        mapOfIdsToImageUrls!.length == mapOfIdsToFormattedFoodSpots!.length,
+        mapOfIdsToImageUrls.length == foodSpotFormattedResponses.length,
       );
 
-      for (var formattedFoodSpots in mapOfIdsToFormattedFoodSpots!.values) {
+      for (var formattedFoodSpots in foodSpotFormattedResponses) {
         final foodSpotDetails =
             FoodSpotDetails.fromFormattedResponse(formattedFoodSpots);
         print(foodSpotDetails);

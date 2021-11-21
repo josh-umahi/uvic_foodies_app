@@ -22,8 +22,8 @@ class OverridenDate {
         const Duration(days: 1),
       );
 
-      if (dateStart.isBefore(dateEnd)) {
-        throw ("dateStart is before dateEnd");
+      if (dateEnd.isBefore(dateStart)) {
+        throw ("dateEnd is before dateStart");
       }
 
       final nullableListOfFoodSpotJsonsToExclude = json["foodSpotsToExclude"];

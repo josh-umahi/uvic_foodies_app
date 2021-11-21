@@ -6,6 +6,8 @@ abstract class ColorConstants {
   static const darkGrey1 = Color(0xFF8E8E92);
   static const darkGrey2 = Color(0xFF363636);
   static const blue1 = Color(0xFF4172F0);
+  static const green1 = Color(0XFF2DB674);
+  static const yellow1 = Color(0XFFFFB118);
 }
 
 abstract class BorderConstants {

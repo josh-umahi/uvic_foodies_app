@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/enums.dart';
-import '../../../data/models/food_spot/food_spot_thumbnail.dart';
+import '../../../data/models/food_spot/food_spot_details.dart';
 import '../../../data/models/overriden_date/overriden_date.dart';
-import '../../../data/repositories/constants.dart';
 import '../../../logic/cubits/overriden_date_cubit.dart';
 import '../../global_widgets/custom_texts.dart';
 import 'availability_status_icon.dart';
@@ -15,11 +14,11 @@ const circularRadiusValue = 20.0;
 
 class FoodSpotCard extends StatelessWidget {
   const FoodSpotCard(
-    this.foodSpotThumbnail, {
+    this.foodSpotDetails, {
     Key? key,
   }) : super(key: key);
 
-  final FoodSpotThumbnail foodSpotThumbnail;
+  final FoodSpotDetails foodSpotDetails;
 
   static const double _horizontalSpacing = 16;
   static const double _verticalSpacing = 12;
@@ -49,8 +48,7 @@ class FoodSpotCard extends StatelessWidget {
                 top: Radius.circular(circularRadiusValue),
               ),
               child: CachedNetworkImage(
-                // TODO: Update accordingly when official server has been published
-                imageUrl: "http://$baseUrl${foodSpotThumbnail.coverImageUrl}",
+                imageUrl: foodSpotDetails.coverImageUrl,
                 height: 120,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -67,7 +65,7 @@ class FoodSpotCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimaryText(
-                    foodSpotThumbnail.name,
+                    foodSpotDetails.name,
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                   ),
@@ -81,13 +79,13 @@ class FoodSpotCard extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: foodSpotThumbnail.locationPreposition != ""
-                              ? foodSpotThumbnail.locationPreposition + " "
+                          text: foodSpotDetails.locationPreposition != ""
+                              ? foodSpotDetails.locationPreposition + " "
                               : "",
                         ),
                         TextSpan(
-                          text: foodSpotThumbnail.locationNearbyLandmark,
-                          style: TextStyle(
+                          text: foodSpotDetails.locationNearbyLandmark,
+                          style: const TextStyle(
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -101,16 +99,16 @@ class FoodSpotCard extends StatelessWidget {
                       late final String availabilityMessage;
                       if (context
                           .read<OverridenDateCubit>()
-                          .shouldOverride(foodSpotThumbnail.id)) {
+                          .shouldOverride(foodSpotDetails.id)) {
                         // TODO: Replace assertion, observe that there's no try catch here
                         assert(state != null);
                         availabilityStatus = null;
                         availabilityMessage = state!.reasonForOverride;
                       } else {
                         availabilityStatus =
-                            foodSpotThumbnail.operatingTimes.availabilityStatus;
-                        availabilityMessage = foodSpotThumbnail
-                            .operatingTimes.availabilityMessage;
+                            foodSpotDetails.operatingTimes.availabilityStatus;
+                        availabilityMessage =
+                            foodSpotDetails.operatingTimes.availabilityMessage;
                       }
 
                       return Column(
@@ -131,7 +129,7 @@ class FoodSpotCard extends StatelessWidget {
                           ),
                           SeeTodaysMenu(
                             mealOfferingsUrl:
-                                foodSpotThumbnail.mealOfferingsUrl,
+                                foodSpotDetails.mealOfferingsAsUrl,
                             availabilityStatus: availabilityStatus,
                             verticalSpacing: _verticalSpacing,
                           ),

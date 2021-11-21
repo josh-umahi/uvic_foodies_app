@@ -33,11 +33,11 @@ class OverridenDatesRepository {
       client.close();
 
       final entireJson = jsonDecode(response.body);
-      if (entireJson["total"] > 1) {
-        throw Exception(
-          "There a multiple dates to be overriden, and our current app version isn't optimized for this",
-        );
-      }
+
+      /// We don't throw exception because if there a multiple overriden dates,
+      /// we simply use the last on the list
+      /// Assert will throw an exception in debugging mode but will have no effect in production mode
+      assert(entireJson["total"] <= 1);
 
       final entireJsonItems = List.from(entireJson["items"]);
 
@@ -49,8 +49,10 @@ class OverridenDatesRepository {
         return null;
       }
     } catch (e) {
-      // TODO: Appropriate Exception Handling
-      rethrow;
+      /// If an exception is thrown, simply return null (no OverridenDate) and
+      /// continue the program as normal. Print the exception however, for debugging
+      print(e);
+      return null;
     }
   }
 }

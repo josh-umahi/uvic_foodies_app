@@ -9,9 +9,7 @@ class SeeTodaysMenu extends StatelessWidget {
   /// in a URL format and the availabilityStatus is OpenNow or ReOpensLaterToday because
   /// these are the two scenarios where we're sure you want to see this. We don't show this
   /// during overrides because the override reason could be "Closed for ..." and so people'll get confused
-  ///
-  // ignore: prefer_const_constructors_in_immutables
-  SeeTodaysMenu({
+  const SeeTodaysMenu({
     Key? key,
     required this.mealOfferingsUrl,
     required this.availabilityStatus,
@@ -27,15 +25,17 @@ class SeeTodaysMenu extends StatelessWidget {
     if (mealOfferingsUrl != null &&
         (availabilityStatus == AvailabilityStatus.OpenNow ||
             availabilityStatus == AvailabilityStatus.ReOpensLaterToday)) {
+      final color = chooseColor(availabilityStatus);
+
       return GestureDetector(
         child: Container(
-          margin: EdgeInsets.only(top: 14),
+          margin: const EdgeInsets.only(top: 14),
           padding: EdgeInsets.symmetric(vertical: verticalSpacing),
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
                 width: 0.5,
-                color: ColorConstants.blue1,
+                color: color,
               ),
             ),
           ),
@@ -43,8 +43,8 @@ class SeeTodaysMenu extends StatelessWidget {
           child: PrimaryText(
             "SEE TODAY'S MENU",
             fontSize: 15,
-            color: ColorConstants.blue1,
-            fontWeight: FontWeight.w400,
+            color: color,
+            fontWeight: FontWeight.w500,
             lineHeight: 1.3,
             letterSpacing: 0.75,
           ),
@@ -52,6 +52,17 @@ class SeeTodaysMenu extends StatelessWidget {
       );
     } else {
       return SizedBox(height: verticalSpacing);
+    }
+  }
+
+  Color chooseColor(AvailabilityStatus? availabilityStatus) {
+    assert(availabilityStatus == AvailabilityStatus.OpenNow ||
+        availabilityStatus == AvailabilityStatus.ReOpensLaterToday);
+
+    if (availabilityStatus == AvailabilityStatus.OpenNow) {
+      return ColorConstants.green1;
+    } else {
+      return ColorConstants.yellow1;
     }
   }
 }

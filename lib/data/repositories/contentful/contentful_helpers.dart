@@ -27,24 +27,4 @@ abstract class ContentfulHelpers {
       rethrow;
     }
   }
-
-  static Map<String, FoodSpotFormattedResponse>
-      extractFoodSpotIdAndFormattedResponse(
-    Map<String, dynamic> foodSpotJson,
-    String coverImageUrl,
-  ) {
-    try {
-      final foodSpotId = foodSpotJson["sys"]["id"];
-
-      return {
-        foodSpotId: FoodSpotFormattedResponse.fromJson(
-          foodSpotJson,
-          coverImageUrl,
-        ),
-      };
-    } catch (e) {
-      // TODO: Appropriate Error Handling
-      rethrow;
-    }
-  }
 }

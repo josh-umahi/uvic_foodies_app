@@ -10,13 +10,14 @@ class FoodSpotThumbnailsLoading extends FoodSpotThumbnailsState {
 }
 
 class FoodSpotThumbnailsLoaded extends FoodSpotThumbnailsState {
-  final List<FoodSpotThumbnail> foodSpotThumbnails;
+  final List<FoodSpotDetails> foodSpotThumbnails;
   const FoodSpotThumbnailsLoaded(this.foodSpotThumbnails);
 }
 
 class FoodSpotThumbnailsError extends FoodSpotThumbnailsState {
   final dynamic error;
   FoodSpotThumbnailsError(this.error) {
+    // TODO: Appropriate Exception Handling
     print(error);
   }
 }

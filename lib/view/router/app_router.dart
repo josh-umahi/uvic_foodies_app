@@ -7,7 +7,7 @@ import '../food_spots_listed/food_spots_listed.dart';
 
 class AppRouter {
   final _foodSpotThumbnailsCubit = FoodSpotThumbnailsCubit()
-    ..loadFoodSpotThumbnails();
+    ..init();
   final _overridenDateCubit = OverridenDateCubit()..loadTodaysOverridenDate();
 
   Route generateRoute(RouteSettings settings) {
