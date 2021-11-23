@@ -1,6 +1,5 @@
 import '../enums.dart';
 import 'operating_times_formatted_response.dart';
-// TODO: Replace assertion, observe that there's no try catch here
 
 /// This class is in charge of all the time data of the foodSpot such as:
 /// - daily hours of operation,
@@ -123,7 +122,9 @@ class OperatingTimes {
   ) {
     assert(closeTimeToday.isAfter(openTimeToday));
 
-    if (timeNow.isAfter(openTimeToday.subtract(Duration(milliseconds: 1))) &&
+    if (timeNow.isAfter(
+          openTimeToday.subtract(const Duration(milliseconds: 1)),
+        ) &&
         timeNow.isBefore(closeTimeToday)) {
       return AvailabilityStatus.OpenNow;
     } else if (timeNow.isBefore(openTimeToday)) {

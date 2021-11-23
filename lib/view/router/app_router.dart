@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../logic/cubits/food_spot_thumbnail_cubit.dart';
+import '../../logic/cubits/food_spot_thumbnails_cubit.dart';
 import '../../logic/cubits/overriden_date_cubit.dart';
 import '../food_spots_listed/food_spots_listed.dart';
 

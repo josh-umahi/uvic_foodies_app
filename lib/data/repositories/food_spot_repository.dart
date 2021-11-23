@@ -57,11 +57,19 @@ class FoodSpotRepository {
       final coverImageId = foodSpotJson["fields"]["coverImage"]["sys"]["id"];
       final coverImageUrl = _mapOfIdsToImageUrls[coverImageId]!;
 
-      final foodSpotFormattedResponse = FoodSpotFormattedResponse.fromJson(
-        foodSpotJson,
-        coverImageUrl,
-      );
-      _foodSpotFormattedResponses.add(foodSpotFormattedResponse);
+      /// If there is an error thrown in one of the foodSpotFormattedResponse that
+      /// we're trying to create, we don't add that one to our [_foodSpotFormattedResponses]
+      /// We simply skip to the next iteration of the loop. Details of the exception will
+      /// be printed to console by the original try-catch block that caught it
+      try {
+        final foodSpotFormattedResponse = FoodSpotFormattedResponse.fromJson(
+          foodSpotJson,
+          coverImageUrl,
+        );
+        _foodSpotFormattedResponses.add(foodSpotFormattedResponse);
+      } catch (e) {
+        continue;
+      }
     }
   }
   //**************************************************/
@@ -90,9 +98,13 @@ class FoodSpotRepository {
       client.close();
 
       final json = jsonDecode(response.body);
+      final jsonItemsLength = json["total"];
+
       return {
-        "listOfJsonFoodSpots": json["items"] as List,
-        "listOfJsonImages": json["includes"]["Asset"] as List,
+        "listOfJsonFoodSpots":
+            jsonItemsLength == 0 ? [] : json["items"] as List,
+        "listOfJsonImages":
+            jsonItemsLength == 0 ? [] : json["includes"]["Asset"] as List,
       };
     } catch (e) {
       // TODO: Appropriate Exception Handling

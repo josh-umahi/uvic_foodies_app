@@ -66,8 +66,9 @@ class OperatingTimesFormattedResponse {
         saturdayHours: saturdayHours,
         sundayHours: sundayHours,
       );
-    } catch (e) {
-      // TODO: Appropriate Exception Handling
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
       rethrow;
     }
   }

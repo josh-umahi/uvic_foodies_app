@@ -1,5 +1,3 @@
-import '../../models/food_spot/food_spot_formatted_response.dart';
-
 abstract class ContentfulHelpers {
   //************************* Static Constants *************************/
   static const BASE_URL = "cdn.contentful.com";

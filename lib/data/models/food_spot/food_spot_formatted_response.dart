@@ -75,8 +75,10 @@ class FoodSpotFormattedResponse extends FoodSpot {
         buildingFilterTagString: buildingFilterTagString,
         operatingTimesFormattedResponse: operatingTimesFormattedResponse,
       );
-    } catch (e) {
-      // TODO: Appropriate Exception Handling
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+      // print("json --> $json");
       rethrow;
     }
   }

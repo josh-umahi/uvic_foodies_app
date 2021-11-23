@@ -13,12 +13,8 @@ void main() {
       final mapOfIdsToImageUrls = foodSpotRepository.getMapOfIdsToImageUrls;
       final foodSpotFormattedResponses =
           foodSpotRepository.getFoodSpotFormattedResponses;
-
-      assert(
-        mapOfIdsToImageUrls.length == foodSpotFormattedResponses.length,
-      );
-
-      print("length of foodSpots: ${mapOfIdsToImageUrls.length}");
+      print("Number of foodSpots: ${foodSpotFormattedResponses.length}");
+      print("Number of images: ${mapOfIdsToImageUrls.length}");
       print("");
     });
 
@@ -44,14 +40,8 @@ void main() {
         () async {
       await foodSpotRepository.init();
 
-      final mapOfIdsToImageUrls = foodSpotRepository.getMapOfIdsToImageUrls;
       final foodSpotFormattedResponses =
           foodSpotRepository.getFoodSpotFormattedResponses;
-
-      assert(
-        mapOfIdsToImageUrls.length == foodSpotFormattedResponses.length,
-      );
-
       for (var formattedFoodSpots in foodSpotFormattedResponses) {
         final foodSpotDetails =
             FoodSpotDetails.fromFormattedResponse(formattedFoodSpots);

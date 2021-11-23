@@ -23,7 +23,7 @@ class OverridenDate {
       );
 
       if (dateEnd.isBefore(dateStart)) {
-        throw ("dateEnd is before dateStart");
+        throw Exception("dateEnd is before dateStart");
       }
 
       final nullableListOfFoodSpotJsonsToExclude = json["foodSpotsToExclude"];
@@ -50,7 +50,9 @@ class OverridenDate {
         reasonForOverride: reasonForOverride,
         idsToExclude: idsToExclude,
       );
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
       rethrow;
     }
   }

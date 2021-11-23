@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/cubits/food_spot_thumbnail_cubit.dart';
+import '../../../logic/cubits/food_spot_thumbnails_cubit.dart';
 import '../../../logic/cubits/overriden_date_cubit.dart';
 import '../../constants.dart';
 import '../../global_widgets/custom_texts.dart';
@@ -39,7 +39,7 @@ class FilterButton extends StatelessWidget {
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
+            side: const BorderSide(
               color: ColorConstants.darkGrey2,
               width: 0.5,
             ),

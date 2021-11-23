@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../logic/cubits/food_spot_thumbnail_cubit.dart';
+import '../../logic/cubits/food_spot_thumbnails_cubit.dart';
 import '../constants.dart';
 import '../food_spots_listed/widgets/filter_button_bar.dart';
 import '../food_spots_listed/widgets/search_bar.dart';
@@ -18,7 +18,7 @@ class _FoodSpotsListedScreenState extends State<FoodSpotsListedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: Column(
         children: [
           Container(
@@ -36,7 +36,7 @@ class _FoodSpotsListedScreenState extends State<FoodSpotsListedScreen> {
                   child: SearchBar(),
                 ),
                 SizedBoxes.vertical1,
-                FilterButtonBar(),
+                const FilterButtonBar(),
                 SizedBoxes.vertical1,
                 const Divider(
                   color: ColorConstants.lightGrey2,
@@ -59,7 +59,7 @@ class _FoodSpotsListedScreenState extends State<FoodSpotsListedScreen> {
                         SizedBoxes.vertical1,
                         ...state.foodSpotThumbnails.map((foodSpotThumbnail) =>
                             FoodSpotCard(foodSpotThumbnail)),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                       ]),
                 );
               } else {

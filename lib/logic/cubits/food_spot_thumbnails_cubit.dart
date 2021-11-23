@@ -6,7 +6,7 @@ import '../../../data/repositories/food_spot_repository.dart';
 import '../../data/models/enums.dart';
 import 'overriden_date_cubit.dart';
 
-part 'food_spot_thumbnail_state.dart';
+part 'food_spot_thumbnails_state.dart';
 
 class FoodSpotThumbnailsCubit extends Cubit<FoodSpotThumbnailsState> {
   /// Ensure to call the [init] method first when creating a new instance of this class!
@@ -40,20 +40,31 @@ class FoodSpotThumbnailsCubit extends Cubit<FoodSpotThumbnailsState> {
     }
   }
 
+  void search(String searchTerm) {
+    final searchTermTrimmedAndLowerCased = searchTerm.trim().toLowerCase();
+    final searchResults = _allFoodSpotDetails.where((foodSpotDetails) {
+      return foodSpotDetails.name
+          .toLowerCase()
+          .contains(searchTermTrimmedAndLowerCased);
+    }).toList();
+
+    emit(FoodSpotThumbnailsLoaded(searchResults));
+  }
+
   void filterByAll() {
     emit(FoodSpotThumbnailsLoaded(_allFoodSpotDetails));
   }
 
   void filterByOpenNow(OverridenDateCubit overridenDateCubit) {
     emit(const FoodSpotThumbnailsLoading());
-    final filteredFoodSpotThumbnails =
-        _allFoodSpotDetails.where((foodSpotThumbnail) {
+    final filteredFoodSpotDetails =
+        _allFoodSpotDetails.where((foodSpotDetails) {
       // * Here we must also ensure that the foodSpot is not overriden
-      return foodSpotThumbnail.operatingTimes.isOpenNow &&
-          !overridenDateCubit.shouldOverride(foodSpotThumbnail.id);
+      return foodSpotDetails.operatingTimes.isOpenNow &&
+          !overridenDateCubit.shouldOverride(foodSpotDetails.id);
     }).toList();
 
-    emit(FoodSpotThumbnailsLoaded(filteredFoodSpotThumbnails));
+    emit(FoodSpotThumbnailsLoaded(filteredFoodSpotDetails));
   }
 
   void filterByTheSub() {
@@ -70,10 +81,10 @@ class FoodSpotThumbnailsCubit extends Cubit<FoodSpotThumbnailsState> {
 
   void filterByBuildingFilterTag(BuildingFilterTag buildingFilterTag) {
     emit(const FoodSpotThumbnailsLoading());
-    final filteredFoodSpotThumbnails = _allFoodSpotDetails
-        .where((foodSpotThumbnail) =>
-            foodSpotThumbnail.buildingFilterTag == buildingFilterTag)
+    final filteredFoodSpotDetails = _allFoodSpotDetails
+        .where((foodSpotDetails) =>
+            foodSpotDetails.buildingFilterTag == buildingFilterTag)
         .toList();
-    emit(FoodSpotThumbnailsLoaded(filteredFoodSpotThumbnails));
+    emit(FoodSpotThumbnailsLoaded(filteredFoodSpotDetails));
   }
 }

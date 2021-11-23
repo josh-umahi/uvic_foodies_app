@@ -1,4 +1,4 @@
-part of 'food_spot_thumbnail_cubit.dart';
+part of 'food_spot_thumbnails_cubit.dart';
 
 @immutable
 abstract class FoodSpotThumbnailsState {

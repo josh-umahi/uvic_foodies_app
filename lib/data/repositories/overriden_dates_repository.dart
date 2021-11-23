@@ -34,24 +34,29 @@ class OverridenDatesRepository {
 
       final entireJson = jsonDecode(response.body);
 
-      /// We don't throw exception because if there a multiple overriden dates,
-      /// we simply use the last on the list
-      /// Assert will throw an exception in debugging mode but will have no effect in production mode
-      assert(entireJson["total"] <= 1);
+      /// In debug mode, assert that there must be at most 1 overriden date,
+      if(entireJson["total"] > 1){ 
+        throw Exception(
+          "Number of Overriden Dates is greater than 1",
+        );
+      }
 
       final entireJsonItems = List.from(entireJson["items"]);
 
-      if (entireJsonItems.isNotEmpty) {
-        final json = entireJsonItems.last["fields"];
+      /// There should be at most 1 overriden date,
+      /// If there are multiple, we disregard all of them and return null
+      /// This is to discourage me from publishing multiple Overriden Dates to
+      /// the CDN while the app currently doesn't support it
+      if (entireJsonItems.length == 1) {
+        final json = entireJsonItems[0]["fields"];
         final newestOverridenDates = OverridenDate.fromJson(json);
         return newestOverridenDates;
       } else {
         return null;
       }
-    } catch (e) {
-      /// If an exception is thrown, simply return null (no OverridenDate) and
-      /// continue the program as normal. Print the exception however, for debugging
+    } catch (e, stackTrace) {
       print(e);
+      print(stackTrace);
       return null;
     }
   }

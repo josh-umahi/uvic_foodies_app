@@ -36,7 +36,7 @@ class _FilterButtonBarState extends State<FilterButtonBar> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           ..._filterList.map(
             (filter) {
               // TODO: Replace assertion, observe that there's no try catch here
