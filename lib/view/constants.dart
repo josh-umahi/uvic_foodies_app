@@ -15,10 +15,6 @@ abstract class BorderConstants {
   static const radius1 = 20.0;
 }
 
-abstract class SizedBoxes {
-  static const vertical1 = SizedBox(height: 13);
-}
-
 final ourLogo = Image.asset(
   "assets/logo.png",
   height: 23,

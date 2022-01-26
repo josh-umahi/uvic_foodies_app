@@ -12,18 +12,24 @@ class SearchBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  _SearchBarState createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
   late final TextEditingController _textFieldController;
   late final FocusNode _textFieldFocusNode;
 
+  bool closeButtonIsVisible = false;
+  bool searchIconIsReplacedByBackIcon = false;
+
   @override
   void initState() {
     super.initState();
     _textFieldController = TextEditingController();
     _textFieldFocusNode = FocusNode();
+
+    _textFieldController.addListener(_textFieldControllerListener);
+    _textFieldFocusNode.addListener(_textFieldFocusNodeListener);
   }
 
   @override
@@ -33,24 +39,48 @@ class _SearchBarState extends State<SearchBar> {
     super.dispose();
   }
 
+  void _textFieldFocusNodeListener() {
+    setState(() {
+      searchIconIsReplacedByBackIcon = _textFieldFocusNode.hasFocus;
+    });
+  }
+
+  void _textFieldControllerListener() {
+    setState(() {
+      closeButtonIsVisible = _textFieldController.value.text.isNotEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: ColorConstants.lightGrey1,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(_textFieldFocusNode),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_textFieldFocusNode),
+      child: Container(
+        height: 45,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: ColorConstants.lightGrey1,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Row(
           children: [
-            const Icon(
-              Icons.search,
-              size: 20,
-              color: ColorConstants.darkGrey1,
-            ),
+            searchIconIsReplacedByBackIcon
+                ? GestureDetector(
+                    onTap: () {
+                      _textFieldController.clear();
+                      _textFieldFocusNode.unfocus();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 20,
+                      color: ColorConstants.darkGrey2,
+                    ),
+                  )
+                : const Icon(
+                    Icons.search,
+                    size: 20,
+                    color: ColorConstants.darkGrey1,
+                  ),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -77,14 +107,9 @@ class _SearchBarState extends State<SearchBar> {
                 ),
               ),
             ),
-            // TODO: Is not working
-            _textFieldFocusNode.hasFocus &&
-                    _textFieldController.value.text.isNotEmpty
+            closeButtonIsVisible
                 ? GestureDetector(
-                    onTap: () {
-                      _textFieldController.clear();
-                      _textFieldFocusNode.unfocus();
-                    },
+                    onTap: _textFieldController.clear,
                     child: Container(
                       padding: const EdgeInsets.all(1.5),
                       decoration: const BoxDecoration(
@@ -94,7 +119,7 @@ class _SearchBarState extends State<SearchBar> {
                       child: const Icon(
                         Icons.close_rounded,
                         color: Colors.white,
-                        size: 12.5,
+                        size: 15,
                       ),
                     ),
                   )

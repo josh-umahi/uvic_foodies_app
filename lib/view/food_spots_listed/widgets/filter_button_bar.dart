@@ -31,28 +31,31 @@ class _FilterButtonBarState extends State<FilterButtonBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 34,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          const SizedBox(width: 16),
-          ..._filterList.map(
-            (filter) {
-              // TODO: Replace assertion, observe that there's no try catch here
-              assert(filter.length == 2);
-              assert(filter[0] is String);
-              assert(filter[1] is FilterType);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 13),
+      child: SizedBox(
+        height: 34,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            const SizedBox(width: 16),
+            ..._filterList.map(
+              (filter) {
+                // Assertion here is just for debugging
+                assert(filter.length == 2);
+                assert(filter[0] is String);
+                assert(filter[1] is FilterType);
 
-              return FilterButton(
-                label: filter[0].toString(),
-                filterType: filter[1] as FilterType,
-                selectedLabel: selectedLabel,
-                onTap: handleItemSelected,
-              );
-            },
-          ),
-        ],
+                return FilterButton(
+                  label: filter[0].toString(),
+                  filterType: filter[1] as FilterType,
+                  selectedLabel: selectedLabel,
+                  onTap: handleItemSelected,
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

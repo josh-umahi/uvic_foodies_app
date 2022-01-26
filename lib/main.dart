@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'view/router/app_router.dart';
+import 'config/app_router.dart';
 
 void main() {
   runApp(MyApp());
 }
-
+ 
 // ignore: use_key_in_widget_constructors
 class MyApp extends StatefulWidget {
   @override

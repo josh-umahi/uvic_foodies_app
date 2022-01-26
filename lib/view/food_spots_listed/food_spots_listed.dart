@@ -30,14 +30,14 @@ class _FoodSpotsListedScreenState extends State<FoodSpotsListedScreen> {
                   bottom: false,
                   child: ourLogo,
                 ),
-                SizedBoxes.vertical1,
+                const SizedBox(height: 13),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: SearchBar(),
                 ),
-                SizedBoxes.vertical1,
-                const FilterButtonBar(),
-                SizedBoxes.vertical1,
+                // const FilterButtonBar(),
+                // TODO: Test out using hero animation, yes open it up in new page!
+                const SizedBox(height: 13),
                 const Divider(
                   color: ColorConstants.lightGrey2,
                   thickness: 1,
@@ -50,16 +50,15 @@ class _FoodSpotsListedScreenState extends State<FoodSpotsListedScreen> {
             builder: (_, state) {
               if (state is FoodSpotThumbnailsLoaded) {
                 return Expanded(
+                  // TODO Change to ListView.builder
                   child: ListView(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 0,
-                      ),
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 40),
                       children: [
-                        SizedBoxes.vertical1,
+                        const SizedBox(height: 13),
                         ...state.foodSpotThumbnails.map((foodSpotThumbnail) =>
                             FoodSpotCard(foodSpotThumbnail)),
-                        const SizedBox(height: 40),
                       ]),
                 );
               } else {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../logic/cubits/food_spot_thumbnails_cubit.dart';
-import '../../logic/cubits/overriden_date_cubit.dart';
-import '../food_spots_listed/food_spots_listed.dart';
+import '../logic/cubits/food_spot_thumbnails_cubit.dart';
+import '../logic/cubits/overriden_date_cubit.dart';
+import '../view/food_spots_listed/food_spots_listed.dart';
 
 class AppRouter {
   final _foodSpotThumbnailsCubit = FoodSpotThumbnailsCubit()
